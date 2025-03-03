@@ -1,8 +1,18 @@
 @import "tailwindcss";
+@plugin "daisyui";
 
 @theme {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+}
+
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+  --color-primary: #232323;
+  --color-primary-content: #fff;
+  --color-success: #81c784;
+  --color-success-content: #000;
 }
 
 :root {
