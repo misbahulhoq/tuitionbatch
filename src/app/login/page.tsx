@@ -13,6 +13,16 @@ const LoginPage = () => {
         transition={{ duration: 1 }}
         className="text-center w-full max-w-sm"
       >
+        <div className="breadcrumbs text-sm text-center">
+          <ul>
+            <li>
+              <Link href={`/`}>Home</Link>
+            </li>
+            <li>
+              <Link href={`/login`}>Login</Link>
+            </li>
+          </ul>
+        </div>
         <h1 className="text-4xl font-bold mb-6">Login</h1>
         <button className="btn btn-block">
           <FcGoogle size={24} />
