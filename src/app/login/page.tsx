@@ -14,19 +14,21 @@ const LoginPage = () => {
         transition={{ duration: 1 }}
         className="w-full max-w-sm text-center"
       >
-        <div className="breadcrumbs text-center text-sm">
-          <ul>
-            <li>
-              <Link href={`/`}>Home</Link>
-            </li>
-            <li>
-              <Link href={`/login`}>Login</Link>
-            </li>
-          </ul>
+        <div className="mb-10 flex justify-center">
+          <div className="breadcrumbs text-center">
+            <ul>
+              <li>
+                <Link href={`/`}>Home</Link>
+              </li>
+              <li>
+                <Link href={`/login`}>Login</Link>
+              </li>
+            </ul>
+          </div>
         </div>
-        <h1 className="mb-6 text-4xl font-bold">Login</h1>
+        <h1 className="mt-6 mb-9 text-4xl font-bold">Login</h1>
         <button
-          className="btn btn-block h-14"
+          className="btn btn-block btn-lg"
           onClick={() => {
             signIn("google");
           }}
