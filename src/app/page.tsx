@@ -2,25 +2,28 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 const WelcomePage = () => {
+  const { data } = useSession();
+  console.log(data);
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-indigo-100 to-purple-100 ">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-indigo-100 to-purple-100">
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="text-center"
+        className="container-center text-center"
       >
-        <h1 className="text-5xl font-bold mb-4">
+        <h1 className="mb-4 text-5xl leading-16 font-bold">
           Welcome to Universal <br />
           Tuition Batch Management System.
         </h1>
-        <p className="text-lg mb-8">
+        <p className="mb-8 text-lg">
           Easily manage your students, track attendance, and save important
           information.
         </p>
-        <div className="flex gap-4 justify-center">
+        <div className="flex justify-center gap-4">
           <Link href={`/login`} className="btn btn-primary">
             Get Started
           </Link>

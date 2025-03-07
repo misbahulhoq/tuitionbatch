@@ -3,6 +3,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
+import { signIn } from "next-auth/react";
 
 const LoginPage = () => {
   return (
@@ -29,7 +30,13 @@ const LoginPage = () => {
           Login with Google
         </button>
         <span className="divider divide-primary">or</span>
-        <Link href={`/signup`} className="text-secondary">
+        <Link
+          href={`/signup`}
+          className="text-secondary"
+          onClick={() => {
+            signIn("google");
+          }}
+        >
           Continue with Email
         </Link>
       </motion.div>
