@@ -1,37 +1,13 @@
 "use client";
 import React from "react";
-import { motion } from "framer-motion";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
+import WelcomePage from "@/components/WelcomePage";
 
-const WelcomePage = () => {
-  const { data } = useSession();
-  console.log(data);
-  return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-indigo-100 to-purple-100">
-      <motion.div
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className="container-center text-center"
-      >
-        <h1 className="mb-4 text-5xl leading-16 font-bold">
-          Welcome to Universal <br />
-          Tuition Batch Management System.
-        </h1>
-        <p className="mb-8 text-lg">
-          Easily manage your students, track attendance, and save important
-          information.
-        </p>
-        <div className="flex justify-center gap-4">
-          <Link href={`/login`} className="btn btn-primary">
-            Get Started
-          </Link>
-          <button className="btn btn-outline btn-primary">Learn More</button>
-        </div>
-      </motion.div>
-    </div>
-  );
+const HomePage = () => {
+  const { data: session } = useSession();
+  if (!session) return <WelcomePage />;
+  return <div></div>;
 };
 
-export default WelcomePage;
+export default HomePage;

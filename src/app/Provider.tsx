@@ -5,7 +5,7 @@ import React, { ReactNode } from "react";
 const Provider = ({ children }: { children: ReactNode }) => {
   return (
     <SessionProvider>
-      <div>{children}</div>;
+      <div>{children}</div>
     </SessionProvider>
   );
 };
