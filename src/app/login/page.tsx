@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FcGoogle } from "react-icons/fc";
 import Link from "next/link";
@@ -30,16 +30,23 @@ const LoginPage = () => {
         <button
           className="btn btn-block btn-lg"
           onClick={() => {
-            signIn("google");
+            signIn("google", { redirectTo: "/" });
           }}
         >
           <FcGoogle size={24} />
           Login with Google
         </button>
-        <span className="divider divide-primary">or</span>
-        <Link href={`/signup`} className="text-secondary">
+        <div className="py-3">
+          <span className="divider divide-primary">or</span>
+        </div>
+
+        <Link href={`/signup`} className="mb-6 block text-lg">
           Continue with Email
         </Link>
+
+        {/* change popover-1 and --anchor-1 names. Use unique names for each dropdown */}
+        {/* For TSX uncomment the commented types below */}
+        {/* <button className="btn btn-lg">You are logging in as a {role}</button> */}
       </motion.div>
     </div>
   );

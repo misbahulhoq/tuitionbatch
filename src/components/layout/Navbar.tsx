@@ -1,7 +1,8 @@
 "use client";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import React from "react";
+import { PiSignOut } from "react-icons/pi";
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -36,13 +37,48 @@ const Navbar = () => {
             <polygon points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
           </svg>
         </label>
-        <Image
-          src={session.user?.image || ""}
-          alt={session.user?.name || ""}
-          height={30}
-          width={30}
-          className="h-9 w-9 rounded-full"
-        />
+
+        <div className="dropdown dropdown-end">
+          <div tabIndex={0} role="button" className="m-1">
+            <Image
+              src={session.user?.image || ""}
+              alt={session.user?.name || ""}
+              height={30}
+              width={30}
+              className="h-9 w-9 rounded-full"
+            />
+          </div>
+          <ul
+            tabIndex={0}
+            className="dropdown-content menu bg-base-300 rounded-box z-1 w-52 p-2 shadow-sm"
+          >
+            <div className="flex flex-col items-center justify-center gap-2">
+              {/* <span className="lg:text-md text-xs">{session?.user?.email}</span> */}
+              <Image
+                src={session.user?.image || ""}
+                alt={session.user?.name || ""}
+                height={100}
+                width={100}
+                className="mx-auto h-20 w-20 rounded-full"
+              />
+              <span className="lg:text-md text-xs">
+                Hi, {session?.user?.name}
+              </span>
+            </div>
+
+            <li className="mt-3">
+              <a
+                onClick={() => {
+                  signOut();
+                }}
+                className="btn"
+              >
+                <PiSignOut />
+                Logout
+              </a>
+            </li>
+          </ul>
+        </div>
       </nav>
     </header>
   );
