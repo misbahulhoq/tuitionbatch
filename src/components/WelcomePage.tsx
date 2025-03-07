@@ -19,11 +19,13 @@ const WelcomePage = () => {
           Easily manage your students, track attendance, and save important
           information.
         </p>
-        <div className="flex justify-center gap-4">
-          <Link href={`/login`} className="btn btn-primary">
+        <div className="flex justify-center gap-7">
+          <Link href={`/login`} className="btn btn-primary btn-lg">
             Get Started
           </Link>
-          <button className="btn btn-outline btn-primary">Learn More</button>
+          <button className="btn btn-outline btn-primary btn-lg">
+            Learn More
+          </button>
         </div>
       </motion.div>
     </div>

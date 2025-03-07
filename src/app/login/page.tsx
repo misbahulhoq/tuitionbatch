@@ -7,7 +7,7 @@ import { signIn } from "next-auth/react";
 
 const LoginPage = () => {
   return (
-    <div className="container-center flex min-h-screen flex-col items-center justify-center">
+    <div className="container-center flex h-[100dvh] flex-col items-center justify-center">
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -26,7 +26,7 @@ const LoginPage = () => {
         </div>
         <h1 className="mb-6 text-4xl font-bold">Login</h1>
         <button
-          className="btn btn-block"
+          className="btn btn-block h-14"
           onClick={() => {
             signIn("google");
           }}
