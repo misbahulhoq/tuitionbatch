@@ -1,19 +1,27 @@
 "use client";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { PiSignOut } from "react-icons/pi";
+import SidebarLink from "../SidebarLink";
 
 const Navbar = () => {
   const { data: session } = useSession();
-
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
+  };
   if (!session) return null;
   return (
-    <header className="bg-base-200 py-2">
+    <header className="bg-base-200 flex h-14 items-center">
       <nav className="container-center flex items-center justify-between">
         <label className="btn btn-circle swap swap-rotate">
           {/* this hidden checkbox controls the state */}
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            checked={sidebarOpen}
+            onChange={toggleSidebar}
+          />
 
           {/* hamburger icon */}
           <svg
@@ -80,6 +88,32 @@ const Navbar = () => {
           </ul>
         </div>
       </nav>
+
+      <div className="relative">
+        {/* Sidebar */}
+        <div
+          className={`bg-base-300 fixed top-14 left-0 z-50 h-full w-64 transform transition-transform duration-200 ease-in-out ${
+            sidebarOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
+        >
+          <div className="">
+            <ul className="menu mt-4 w-full space-y-1.5">
+              <li className="">
+                <SidebarLink href="/" title="Home" />
+              </li>
+              <li className="">
+                <SidebarLink href="/students" title="Students" />
+              </li>
+              <li className="">
+                <SidebarLink href="/add-student" title="Add Student" />
+              </li>
+              <li className="">
+                <SidebarLink href="/docs" title="Learn More" />
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </header>
   );
 };

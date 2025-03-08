@@ -24,6 +24,8 @@ const AttendanceSheet = () => {
   const handleAttendance = () => {
     const presentCount = students.filter((student) => student.present).length;
     alert(`Present: ${presentCount} / ${students.length}`);
+    console.log({ presentCount, total: students.length, date });
+    console.log(typeof date);
   };
 
   return (
@@ -38,7 +40,6 @@ const AttendanceSheet = () => {
             setDate(new Date(e.target.value));
             console.log(e.target.value);
           }}
-          //   value={date.toLocaleString()}
         />
       </div>
 
