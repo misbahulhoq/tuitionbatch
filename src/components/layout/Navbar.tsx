@@ -4,10 +4,23 @@ import Image from "next/image";
 import React, { useState } from "react";
 import { PiSignOut } from "react-icons/pi";
 import SidebarLink from "../SidebarLink";
+const sidebarLinks = [
+  { href: "/", title: "Home" },
+  { href: "/students", title: "Students" },
+  { href: "/students/create", title: "Add Student" },
+  { href: "/docs", title: "Learn More" },
+];
 
 const Navbar = () => {
   const { data: session } = useSession();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  const closeSidebar = () => {
+    setSidebarOpen(false);
+  };
+  const openSidebar = () => {
+    setSidebarOpen(true);
+  };
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
@@ -98,18 +111,11 @@ const Navbar = () => {
         >
           <div className="">
             <ul className="menu mt-4 w-full space-y-1.5">
-              <li className="">
-                <SidebarLink href="/" title="Home" />
-              </li>
-              <li className="">
-                <SidebarLink href="/students" title="Students" />
-              </li>
-              <li className="">
-                <SidebarLink href="/add-student" title="Add Student" />
-              </li>
-              <li className="">
-                <SidebarLink href="/docs" title="Learn More" />
-              </li>
+              {sidebarLinks.map((link) => (
+                <li key={link.href} onClick={closeSidebar}>
+                  <SidebarLink href={link.href} title={link.title} />
+                </li>
+              ))}
             </ul>
           </div>
         </div>
