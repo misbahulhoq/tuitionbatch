@@ -89,7 +89,9 @@ const AddStudentPage = () => {
           </div>
 
           <div className="flex w-full max-w-xs justify-end">
-            <button className="btn btn-primary mt-2">Submit</button>
+            <button className="btn btn-primary mt-2" disabled={isLoading}>
+              Submit
+            </button>
           </div>
         </form>
       </div>
