@@ -6,7 +6,7 @@ import WelcomePage from "@/components/WelcomePage";
 import AttendanceSheet from "@/components/AttendanceSheet";
 
 const HomePage = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   console.log(session);
   if (session === undefined) return null;
   if (session === null) return <WelcomePage />;
