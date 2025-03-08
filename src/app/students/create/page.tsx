@@ -1,11 +1,13 @@
 "use client";
+import { useCreateStudentMutation } from "@/redux/features/studets/studentsApiSlice";
 import { useSession } from "next-auth/react";
 import React from "react";
 import { useForm } from "react-hook-form";
+import Swal from "sweetalert2";
 
 interface FormData {
   name: string;
-  email: string;
+  // email: string;
   level: number;
 }
 
@@ -15,10 +17,29 @@ const AddStudentPage = () => {
     handleSubmit,
     register,
     formState: { errors },
+    reset,
   } = useForm<FormData>();
+
+  const [addNewStudent, { isLoading }] = useCreateStudentMutation();
   const onSubmit = (data: FormData) => {
     const studentdata = { ...data, teacher: session?.user?.email };
     console.log(studentdata);
+    addNewStudent(studentdata)
+      .unwrap()
+      .then(() => {
+        Swal.fire({
+          icon: "success",
+          title: "Student Added Successfully",
+        });
+        reset();
+      })
+      .catch((err) => {
+        console.log(err);
+        Swal.fire({
+          icon: "error",
+          title: err?.data?.message,
+        });
+      });
   };
   return (
     <section className="container-center flex justify-center">
@@ -39,7 +60,7 @@ const AddStudentPage = () => {
             )}
           </div>
 
-          <div className="form-conrol">
+          {/* <div className="form-conrol">
             <input
               type="email"
               placeholder="Enter Student's Email."
@@ -51,7 +72,7 @@ const AddStudentPage = () => {
             {errors.email && (
               <p className="text-error text-sm">{errors.email.message}</p>
             )}
-          </div>
+          </div> */}
 
           <div className="form-conrol mt-2">
             <input
@@ -66,6 +87,7 @@ const AddStudentPage = () => {
               <p className="text-error text-sm">{errors.level.message}</p>
             )}
           </div>
+
           <div className="flex w-full max-w-xs justify-end">
             <button className="btn btn-primary mt-2">Submit</button>
           </div>
