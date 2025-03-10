@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 import WelcomePage from "@/components/WelcomePage";
@@ -7,6 +7,11 @@ import AttendanceSheet from "@/components/AttendanceSheet";
 
 const HomePage = () => {
   const { data: session, status } = useSession();
+  useEffect(() => {
+    const teachersEmail = session?.user?.email;
+    if (!localStorage.getItem("email"))
+      localStorage.setItem("email", teachersEmail || "");
+  }, [session, status]);
   console.log(session);
   if (session === undefined) return null;
   if (session === null) return <WelcomePage />;
