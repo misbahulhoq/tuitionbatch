@@ -21,6 +21,14 @@ const studentApiSlice = baseAPI.injectEndpoints({
       }),
       invalidatesTags: ["Students"],
     }),
+    updateStudentById: builder.mutation({
+      query: (data) => ({
+        url: `/students/${data._id}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["Students"],
+    }),
   }),
 });
 
@@ -28,4 +36,5 @@ export const {
   useGetStudentsQuery,
   useCreateStudentMutation,
   useDeleteStudentByIdMutation,
+  useUpdateStudentByIdMutation,
 } = studentApiSlice;

@@ -4,8 +4,10 @@ import AddStudentForm from "@/components/shared/AddStudentForm";
 import {
   useDeleteStudentByIdMutation,
   useGetStudentsQuery,
+  useUpdateStudentByIdMutation,
 } from "@/redux/features/studets/studentsApiSlice";
 import React from "react";
+import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
 
 const StudentsPage = () => {
@@ -63,6 +65,7 @@ interface IStudent {
 const StudentCard = ({ props }: { props: IStudent }) => {
   const { _id, name, level } = props || {};
   const [deleteStudentById, { isLoading }] = useDeleteStudentByIdMutation();
+
   const handleDelete = (_id: string) => {
     Swal.fire({
       title: "Are you sure?",
@@ -101,9 +104,73 @@ const StudentCard = ({ props }: { props: IStudent }) => {
           >
             Delete
           </button>
-          <button className="btn btn-primary">Update</button>
+
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              document
+                .getElementById("update_student_modal")
+                ?.classList.add("modal-open");
+            }}
+          >
+            Update
+          </button>
+          <dialog id="update_student_modal" className="modal">
+            <div className="modal-box">
+              <UpdateStudentForm _id={_id} name={name} level={level} />
+              <div className="modal-action">
+                <button
+                  className="btn"
+                  onClick={() => {
+                    document
+                      .getElementById("update_student_modal")
+                      ?.classList.remove("modal-open");
+                  }}
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </dialog>
         </div>
       </div>
+    </div>
+  );
+};
+
+const UpdateStudentForm = ({ _id, name, level }: IStudent) => {
+  const [updateStudentById, { isLoading }] = useUpdateStudentByIdMutation();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm<IStudent>({ defaultValues: { name, level } });
+  const updateStudent = (data: IStudent) => {
+    console.log(data);
+  };
+  return (
+    <div>
+      <form onSubmit={handleSubmit(updateStudent)}>
+        <div className="mb-3">
+          <input
+            className="input input-bordered w-full"
+            {...register("name", { required: true })}
+          />
+          {errors.name && <span className="text-error">Name is required</span>}
+        </div>
+        <div className="mb-3">
+          <input
+            className="input input-bordered w-full"
+            {...register("level", { required: true })}
+          />
+          {errors.level && (
+            <span className="text-error">Level is required</span>
+          )}
+        </div>
+        <div className="flex justify-end">
+          <button className="btn btn-primary">Update</button>
+        </div>
+      </form>
     </div>
   );
 };
