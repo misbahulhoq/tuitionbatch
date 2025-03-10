@@ -14,8 +14,18 @@ const studentApiSlice = baseAPI.injectEndpoints({
       }),
       invalidatesTags: ["Students"],
     }),
+    deleteStudentById: builder.mutation({
+      query: (id) => ({
+        url: `/students/${id}`,
+        method: "DELETE",
+      }),
+      invalidatesTags: ["Students"],
+    }),
   }),
 });
 
-export const { useGetStudentsQuery, useCreateStudentMutation } =
-  studentApiSlice;
+export const {
+  useGetStudentsQuery,
+  useCreateStudentMutation,
+  useDeleteStudentByIdMutation,
+} = studentApiSlice;

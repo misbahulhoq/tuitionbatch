@@ -26,7 +26,7 @@ const AddStudentForm = () => {
       .then(() => {
         Swal.fire({
           icon: "success",
-          title: "Student Added Successfully",
+          text: "Student Added Successfully",
         });
         reset();
       })
