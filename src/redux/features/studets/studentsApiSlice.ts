@@ -4,6 +4,7 @@ const studentApiSlice = baseAPI.injectEndpoints({
   endpoints: (builder) => ({
     getStudents: builder.query<void, void>({
       query: () => "/students",
+      providesTags: ["Students"],
     }),
     createStudent: builder.mutation({
       query: (data) => ({
@@ -11,6 +12,7 @@ const studentApiSlice = baseAPI.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["Students"],
     }),
   }),
 });
