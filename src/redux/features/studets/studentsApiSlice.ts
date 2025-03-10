@@ -2,7 +2,7 @@ import { baseAPI } from "@/redux/api/api";
 
 const studentApiSlice = baseAPI.injectEndpoints({
   endpoints: (builder) => ({
-    getStudents: builder.query({
+    getStudents: builder.query<void, void>({
       query: () => "/students",
     }),
     createStudent: builder.mutation({
