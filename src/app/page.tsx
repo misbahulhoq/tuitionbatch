@@ -7,7 +7,9 @@ import AttendanceSheet from "@/components/AttendanceSheet";
 
 const HomePage = () => {
   const { data: session, status } = useSession();
+
   useEffect(() => {
+    // Set the teacher's email in localStorage
     const teachersEmail = session?.user?.email;
     if (!localStorage.getItem("email"))
       localStorage.setItem("email", teachersEmail || "");
