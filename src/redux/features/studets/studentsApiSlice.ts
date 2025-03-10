@@ -7,7 +7,7 @@ const studentApiSlice = baseAPI.injectEndpoints({
     }),
     createStudent: builder.mutation({
       query: (data) => ({
-        url: "/api/students",
+        url: "/students",
         method: "POST",
         body: data,
       }),
