@@ -14,7 +14,7 @@ const HomePage = () => {
     if (!localStorage.getItem("email"))
       localStorage.setItem("email", teachersEmail || "");
   }, [session, status]);
-  console.log(session);
+
   if (session === undefined) return null;
   if (session === null) return <WelcomePage />;
   return (

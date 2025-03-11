@@ -61,9 +61,10 @@ interface IStudent {
   _id: string;
   name: string;
   level: number;
+  uid: string;
 }
 const StudentCard = ({ props }: { props: IStudent }) => {
-  const { _id, name, level } = props || {};
+  const { _id, name, level, uid } = props || {};
   const [deleteStudentById, { isLoading }] = useDeleteStudentByIdMutation();
 
   const handleDelete = (_id: string) => {
@@ -97,6 +98,7 @@ const StudentCard = ({ props }: { props: IStudent }) => {
       <div className="card-body">
         <h2 className="card-title">{name}</h2>
         <p>Class: {level}</p>
+        <p>UID: {uid}</p>
         <div className="card-actions justify-end">
           <button
             className="btn btn-error btn-outline"
@@ -117,7 +119,12 @@ const StudentCard = ({ props }: { props: IStudent }) => {
           </button>
           <dialog id="update_student_modal" className="modal">
             <div className="modal-box">
-              <UpdateStudentForm _id={_id} name={name} level={level} />
+              <UpdateStudentForm
+                _id={_id}
+                name={name}
+                level={level}
+                uid={uid}
+              />
               <div className="modal-action">
                 <button
                   className="btn"
