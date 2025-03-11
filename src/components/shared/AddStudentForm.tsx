@@ -6,7 +6,7 @@ import { useCreateStudentMutation } from "@/redux/features/studets/studentsApiSl
 import Swal from "sweetalert2";
 export interface IStudent {
   name: string;
-  // email: string;
+  uid: string;
   level: number;
 }
 const AddStudentForm = () => {
@@ -55,19 +55,21 @@ const AddStudentForm = () => {
           )}
         </div>
 
-        {/* <div className="form-conrol">
-            <input
-              type="email"
-              placeholder="Enter Student's Email."
-              className="input input-bordered w-full max-w-xs"
-              {...register("email", {
-                required: { message: "Email is required.", value: true },
-              })}
-            />
-            {errors.email && (
-              <p className="text-error text-sm">{errors.email.message}</p>
-            )}
-          </div> */}
+        <div className="form-conrol">
+          <input
+            type="text"
+            placeholder="Enter Student's UID. e.g. 101"
+            className="input input-bordered w-full max-w-xs"
+            {...register("uid", {
+              required: { message: "UID is required.", value: true },
+              minLength: { message: "UID should be 3 characters.", value: 3 },
+              maxLength: { message: "UID should be 3 characters.", value: 3 },
+            })}
+          />
+          {errors.uid && (
+            <p className="text-error text-sm">{errors.uid.message}</p>
+          )}
+        </div>
 
         <div className="form-conrol mt-2">
           <input

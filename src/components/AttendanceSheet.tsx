@@ -1,15 +1,18 @@
 "use client";
+import { useGetStudentsQuery } from "@/redux/features/studets/studentsApiSlice";
 import React, { useState } from "react";
+import Spinner from "./loaders/Spinner";
 
 const AttendanceSheet = () => {
   // Sample student data
-  const [students, setStudents] = useState([
+  const [student, setStudents] = useState([
     { id: 1, name: "John Doe", present: false },
     { id: 2, name: "Jane Smith", present: false },
     { id: 3, name: "Alice Johnson", present: false },
   ]);
   const [date, setDate] = useState(new Date());
 
+  const { data: students, isLoading } = useGetStudentsQuery();
   console.log(date);
 
   // Function to toggle attendance
@@ -27,6 +30,7 @@ const AttendanceSheet = () => {
     console.log({ presentCount, total: students.length, date });
     console.log(typeof date);
   };
+  if (isLoading) return <Spinner />;
 
   return (
     <div className="mx-auto mt-5 max-w-2xl rounded-lg">
@@ -53,7 +57,7 @@ const AttendanceSheet = () => {
         </thead>
         <tbody>
           {students.map((student) => (
-            <tr key={student.id} className="border-b">
+            <tr key={student._id} className="border-b">
               <td className="px-4 py-2">{student.id}</td>
               <td className="px-4 py-2">{student.name}</td>
               <td className="px-4 py-2">

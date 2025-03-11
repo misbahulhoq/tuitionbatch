@@ -60,13 +60,17 @@ const Navbar = () => {
         </label>
 
         <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="m-1">
+          <div
+            tabIndex={0}
+            role="button"
+            className="m-1 cursor-pointer select-none"
+          >
             <Image
               src={session.user?.image || ""}
               alt={session.user?.name || ""}
               height={30}
               width={30}
-              className="h-9 w-9 rounded-full"
+              className="h-9 w-9 cursor-pointer rounded-full"
             />
           </div>
           <ul
@@ -80,7 +84,7 @@ const Navbar = () => {
                 alt={session.user?.name || ""}
                 height={100}
                 width={100}
-                className="mx-auto h-20 w-20 rounded-full"
+                className="mx-auto h-20 w-20 rounded-full select-none"
               />
               <span className="lg:text-md text-xs">
                 Hi, {session?.user?.name}
