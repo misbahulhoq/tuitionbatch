@@ -56,7 +56,7 @@ const AttendanceSheet = () => {
   if (isLoading) return <Spinner />;
 
   return (
-    <div className="mx-auto mt-5 max-w-2xl rounded-lg">
+    <div className="mx-auto mt-5 max-w-2xl rounded-lg text-lg">
       <h1 className="mb-4 text-center text-2xl font-bold">Attendance Sheet</h1>
       <div className="mb-3 flex justify-center">
         <h2>{date.toDateString()}</h2>
@@ -88,7 +88,7 @@ const AttendanceSheet = () => {
                   <td className="px-4 py-2 text-center">
                     <button
                       onClick={() => toggleAttendance(sheet.student._id)}
-                      className={`btn rounded px-4 py-2 ${
+                      className={`btn btn-lg rounded ${
                         sheet.present
                           ? "bg-success text-success-content"
                           : "bg-error text-white"

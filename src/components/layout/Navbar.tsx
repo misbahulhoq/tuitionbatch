@@ -114,7 +114,7 @@ const Navbar = () => {
           <div className="">
             <ul className="menu mt-4 w-full space-y-1.5">
               {sidebarLinks.map((link) => (
-                <li key={link.href} onClick={closeSidebar}>
+                <li key={link.href} onClick={closeSidebar} className="text-lg">
                   <SidebarLink href={link.href} title={link.title} />
                 </li>
               ))}
