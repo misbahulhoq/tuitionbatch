@@ -81,13 +81,15 @@ const AttendanceSheet = () => {
             attendanceSheet[0]?.sheet?.map((sheet: Sheet) => {
               return (
                 <tr key={sheet._id} className="border-b">
-                  <td className="px-4 py-2 text-center">{sheet.student.uid}</td>
                   <td className="px-4 py-2 text-center">
-                    {sheet.student.name}
+                    {sheet?.student?.uid}
+                  </td>
+                  <td className="px-4 py-2 text-center">
+                    {sheet?.student?.name}
                   </td>
                   <td className="px-4 py-2 text-center">
                     <button
-                      onClick={() => toggleAttendance(sheet.student._id)}
+                      onClick={() => toggleAttendance(sheet?.student?._id)}
                       className={`btn btn-lg rounded ${
                         sheet.present
                           ? "bg-success text-success-content"
