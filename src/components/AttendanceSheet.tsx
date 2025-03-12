@@ -20,7 +20,7 @@ type Sheet = {
 };
 
 const AttendanceSheet = () => {
-  const [date, setDate] = useState(new Date());
+  const [date] = useState(new Date());
   const { data: students, isLoading } = useGetStudentsQuery();
   const [createAttendanceSheet] = useCreateAttendanceMutation();
   const [updateAttendance] = useUpdateAttendanceMutation();
@@ -58,15 +58,14 @@ const AttendanceSheet = () => {
   return (
     <div className="mx-auto mt-5 max-w-2xl rounded-lg">
       <h1 className="mb-4 text-center text-2xl font-bold">Attendance Sheet</h1>
-
       <div className="mb-3 flex justify-center">
-        <input
+        <h2>{date.toDateString()}</h2>
+        {/* <input
           type="datetime-local"
           onChange={(e) => {
             setDate(new Date(e.target.value));
-            console.log(e.target.value);
           }}
-        />
+        /> */}
       </div>
 
       <table className="w-full">
