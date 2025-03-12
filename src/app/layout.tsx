@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     default: "TuitionBatch",
     template: "%s | TuitionBatch",
   },
-  description: "TuitionBatch is a platform for managing students.",
+  description: "TuitionBatch is a platform for managing student's attendance.",
 };
 
 export default function RootLayout({
