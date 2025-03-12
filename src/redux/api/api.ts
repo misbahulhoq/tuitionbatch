@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const baseURL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:5000/api"
-    : "https://gsynctds-api.vercel.app/api";
+    : "https://api-tuitionbatch.vercel.app/api";
 
 export const baseAPI = createApi({
   reducerPath: "baseAPI",
