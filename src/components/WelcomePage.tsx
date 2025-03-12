@@ -11,7 +11,7 @@ const WelcomePage = () => {
         transition={{ duration: 1 }}
         className="container-center text-center"
       >
-        <h1 className="mb-4 text-4xl leading-16 font-bold lg:text-5xl">
+        <h1 className="mb-4 text-4xl leading-[1.5] font-bold lg:text-5xl">
           Welcome to Universal <br />
           Tuition Batch Management System.
         </h1>
