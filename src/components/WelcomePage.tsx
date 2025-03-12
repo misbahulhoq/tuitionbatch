@@ -23,9 +23,9 @@ const WelcomePage = () => {
           <Link href={`/login`} className="btn btn-primary btn-lg">
             Get Started
           </Link>
-          <button className="btn btn-outline btn-primary btn-lg">
+          <Link href={`/docs`} className="btn btn-outline btn-primary btn-lg">
             Learn More
-          </button>
+          </Link>
         </div>
       </motion.div>
     </div>
