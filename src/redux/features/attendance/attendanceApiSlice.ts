@@ -14,6 +14,15 @@ const attendanceApiSlice = baseAPI.injectEndpoints({
       query: () => "/attendance/current-date",
       providesTags: ["Attendance"],
     }),
+    updateAttendance: builder.mutation({
+      query: (body) => {
+        return {
+          url: `/attendance/${body.attendanceId}/${body.studentId}`,
+          method: "PUT",
+        };
+      },
+      invalidatesTags: ["Attendance"],
+    }),
   }),
 });
 
@@ -21,4 +30,5 @@ export const {
   useCreateAttendanceMutation,
   useGetAttendanceQuery,
   useLazyGetAttendanceQuery,
+  useUpdateAttendanceMutation,
 } = attendanceApiSlice;

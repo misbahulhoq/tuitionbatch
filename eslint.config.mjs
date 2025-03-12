@@ -11,6 +11,20 @@ const compat = new FlatCompat({
 
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    files: ["*.ts", "*.tsx", "*.js", "*.jsx"], // Apply to TypeScript and JavaScript files
+    rules: {
+      "@typescript-eslint/ban-ts-comment": [
+        "error",
+        {
+          "ts-expect-error": "allow-with-description",
+          "ts-ignore": "disallow",
+          "ts-nocheck": "allow",
+          "ts-check": false,
+        },
+      ],
+    },
+  },
 ];
 
 export default eslintConfig;

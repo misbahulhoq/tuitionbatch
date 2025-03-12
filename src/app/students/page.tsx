@@ -4,7 +4,6 @@ import AddStudentForm from "@/components/shared/AddStudentForm";
 import {
   useDeleteStudentByIdMutation,
   useGetStudentsQuery,
-  useUpdateStudentByIdMutation,
 } from "@/redux/features/studets/studentsApiSlice";
 import React from "react";
 import { useForm } from "react-hook-form";
@@ -65,7 +64,7 @@ interface IStudent {
 }
 const StudentCard = ({ props }: { props: IStudent }) => {
   const { _id, name, level, uid } = props || {};
-  const [deleteStudentById, { isLoading }] = useDeleteStudentByIdMutation();
+  const [deleteStudentById] = useDeleteStudentByIdMutation();
 
   const handleDelete = (_id: string) => {
     Swal.fire({
@@ -145,8 +144,7 @@ const StudentCard = ({ props }: { props: IStudent }) => {
   );
 };
 
-const UpdateStudentForm = ({ _id, name, level }: IStudent) => {
-  const [updateStudentById, { isLoading }] = useUpdateStudentByIdMutation();
+const UpdateStudentForm = ({ name, level }: IStudent) => {
   const {
     handleSubmit,
     register,

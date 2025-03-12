@@ -18,9 +18,7 @@ const Navbar = () => {
   const closeSidebar = () => {
     setSidebarOpen(false);
   };
-  const openSidebar = () => {
-    setSidebarOpen(true);
-  };
+
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };

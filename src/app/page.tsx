@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect } from "react";
-import Link from "next/link";
 import { useSession } from "next-auth/react";
 import WelcomePage from "@/components/WelcomePage";
 import AttendanceSheet from "@/components/AttendanceSheet";

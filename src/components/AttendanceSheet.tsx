@@ -4,19 +4,28 @@ import React, { useEffect, useState } from "react";
 import Spinner from "./loaders/Spinner";
 import {
   useCreateAttendanceMutation,
-  useGetAttendanceQuery,
   useLazyGetAttendanceQuery,
+  useUpdateAttendanceMutation,
 } from "@/redux/features/attendance/attendanceApiSlice";
+type Sheet = {
+  student: {
+    _id: string;
+    name: string;
+    uid: string;
+    level: string;
+    teacher: string;
+  };
+  present: boolean;
+  _id: string;
+};
 
 const AttendanceSheet = () => {
   const [date, setDate] = useState(new Date());
   const { data: students, isLoading } = useGetStudentsQuery();
   const [createAttendanceSheet] = useCreateAttendanceMutation();
-  const { data } = useGetAttendanceQuery();
-  const [
-    triggerGetAttendance,
-    { data: attendanceSheet, isLoading: isGettingAttendanceSheet },
-  ] = useLazyGetAttendanceQuery();
+  const [updateAttendance] = useUpdateAttendanceMutation();
+  const [triggerGetAttendance, { data: attendanceSheet }] =
+    useLazyGetAttendanceQuery();
   console.log(attendanceSheet);
   useEffect(() => {
     if (Array.isArray(students)) {
@@ -25,14 +34,24 @@ const AttendanceSheet = () => {
         sheet: students.map((s) => ({ student: s._id })),
       })
         .unwrap()
-        .then((res) => {
+        .then(() => {
           triggerGetAttendance();
         })
         .catch((err) => {
           console.log(err);
         });
     }
-  }, [students]);
+  }, [students, createAttendanceSheet, date, triggerGetAttendance]);
+
+  const toggleAttendance = (studentId: string) => {
+    if (attendanceSheet)
+      updateAttendance({
+        // eslint-disable-next-line
+        // @ts-ignore
+        attendanceId: attendanceSheet[0]._id,
+        studentId,
+      });
+  };
 
   if (isLoading) return <Spinner />;
 
@@ -60,33 +79,37 @@ const AttendanceSheet = () => {
         </thead>
         <tbody>
           {Array.isArray(attendanceSheet) &&
-            attendanceSheet[0]?.sheet?.map((sheet) => (
-              <tr key={sheet._id} className="border-b">
-                <td className="px-4 py-2 text-center">{sheet.student.uid}</td>
-                <td className="px-4 py-2 text-center">{sheet.student.name}</td>
-                <td className="px-4 py-2 text-center">
-                  <button
-                    // onClick={() => toggleAttendance(student.id)}
-                    className={`btn rounded px-4 py-2 ${
-                      sheet.student.present
-                        ? "bg-success text-success-content"
-                        : "bg-error text-white"
-                    }`}
-                  >
-                    {sheet.student.present ? "Present" : "Absent"}
-                  </button>
-                </td>
-              </tr>
-            ))}
+            attendanceSheet[0]?.sheet?.map((sheet: Sheet) => {
+              return (
+                <tr key={sheet._id} className="border-b">
+                  <td className="px-4 py-2 text-center">{sheet.student.uid}</td>
+                  <td className="px-4 py-2 text-center">
+                    {sheet.student.name}
+                  </td>
+                  <td className="px-4 py-2 text-center">
+                    <button
+                      onClick={() => toggleAttendance(sheet.student._id)}
+                      className={`btn rounded px-4 py-2 ${
+                        sheet.present
+                          ? "bg-success text-success-content"
+                          : "bg-error text-white"
+                      }`}
+                    >
+                      {sheet.present ? "Present" : "Absent"}
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
         </tbody>
       </table>
       <div className="mt-5">
-        <button
+        {/* <button
           className="btn btn-primary"
           // onClick={handleAttendance}
         >
           Submit
-        </button>
+        </button> */}
       </div>
     </div>
   );

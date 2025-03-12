@@ -1,13 +1,8 @@
 "use client";
-
 import AddStudentForm from "@/components/shared/AddStudentForm";
-import { useSession } from "next-auth/react";
 import React from "react";
-import { useForm } from "react-hook-form";
 
 const AddStudentPage = () => {
-  const { data: session } = useSession();
-
   return (
     <section className="container-center flex justify-center">
       <div className="py-3">
