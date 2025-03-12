@@ -73,7 +73,7 @@ const Navbar = () => {
           </div>
           <ul
             tabIndex={0}
-            className="dropdown-content menu bg-base-300 rounded-box z-1 w-52 p-2 shadow-sm"
+            className="dropdown-content menu bg-base-300 rounded-box z-1 w-56 p-2 shadow-sm"
           >
             <div className="flex flex-col items-center justify-center gap-2">
               {/* <span className="lg:text-md text-xs">{session?.user?.email}</span> */}
@@ -82,16 +82,16 @@ const Navbar = () => {
                 alt={session.user?.name || ""}
                 height={100}
                 width={100}
-                className="mx-auto h-20 w-20 rounded-full select-none"
+                className="mx-auto h-24 w-24 rounded-full select-none"
               />
-              <span className="lg:text-md text-xs">
-                Hi, {session?.user?.name}
-              </span>
+              <p className="">Hi, {session?.user?.name}</p>
             </div>
 
             <li className="mt-3">
               <a
                 onClick={() => {
+                  localStorage.removeItem("authToken");
+                  localStorage.removeItem("email");
                   signOut();
                 }}
                 className="btn"
