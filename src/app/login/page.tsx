@@ -8,12 +8,7 @@ import { signIn } from "next-auth/react";
 const LoginPage = () => {
   return (
     <div className="container-center flex h-[100dvh] flex-col items-center justify-center">
-      <motion.div
-        initial={{ opacity: 0, y: -50 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
-        className="w-full max-w-sm text-center"
-      >
+      <div className="w-full max-w-sm text-center">
         <div className="mb-10 flex justify-center">
           <div className="breadcrumbs text-center">
             <ul>
@@ -47,7 +42,7 @@ const LoginPage = () => {
         {/* change popover-1 and --anchor-1 names. Use unique names for each dropdown */}
         {/* For TSX uncomment the commented types below */}
         {/* <button className="btn btn-lg">You are logging in as a {role}</button> */}
-      </motion.div>
+      </div>
     </div>
   );
 };
