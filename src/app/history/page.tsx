@@ -53,7 +53,6 @@ import React from "react";
 export default function App() {
   return (
     <div className="mx-auto mt-5 max-w-5xl">
-      {/* //@ts-ignore */}
       {/* <AttendanceHistory data={mockData} /> */}
     </div>
   );
