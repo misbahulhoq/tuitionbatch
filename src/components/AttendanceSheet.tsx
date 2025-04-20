@@ -56,11 +56,12 @@ const AttendanceSheet = () => {
 
   if (isLoading) return <Spinner />;
 
-  if (!students)
+  if (Array.isArray(students) && students.length === 0)
     return (
-      <div>
-        Get started by{" "}
-        <Link href={"/students/create"} className="underline">
+      <div className="flex h-screen items-center justify-center text-lg">
+        Get started by
+        <Link href={"/students/create"} className="ml-2 underline">
+          {" "}
           adding students
         </Link>
       </div>
