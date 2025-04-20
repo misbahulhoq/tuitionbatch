@@ -6,6 +6,7 @@ import { PiSignOut } from "react-icons/pi";
 import SidebarLink from "../SidebarLink";
 const sidebarLinks = [
   { href: "/", title: "Home" },
+  { href: "/history", title: "History" },
   { href: "/students", title: "Students" },
   { href: "/students/create", title: "Add Student" },
   { href: "/docs", title: "Learn More" },

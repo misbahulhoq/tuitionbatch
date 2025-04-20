@@ -7,6 +7,7 @@ import {
   useLazyGetAttendanceQuery,
   useUpdateAttendanceMutation,
 } from "@/redux/features/attendance/attendanceApiSlice";
+import Link from "next/link";
 type Sheet = {
   student: {
     _id: string;
@@ -54,6 +55,16 @@ const AttendanceSheet = () => {
   };
 
   if (isLoading) return <Spinner />;
+
+  if (!students)
+    return (
+      <div>
+        Get started by{" "}
+        <Link href={"/students/create"} className="underline">
+          adding students
+        </Link>
+      </div>
+    );
 
   return (
     <div className="mx-auto mt-5 max-w-2xl rounded-lg text-lg">
