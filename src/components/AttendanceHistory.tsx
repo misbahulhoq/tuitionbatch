@@ -3,7 +3,6 @@ import React from "react";
 
 const AttendanceHistory: React.FC = () => {
   const { data: currentData, isLoading } = useGetAttendanceHistoryQuery();
-  console.log(currentData);
   if (!currentData || isLoading) return null;
   return (
     <div className="p-4">
@@ -43,11 +42,13 @@ const AttendanceHistory: React.FC = () => {
                 </thead>
                 <tbody>
                   {data.sheet.map((sheet, index) => {
+                    const { student } = sheet || {};
+                    const { name, level, uid } = student || {};
                     return (
                       <tr key={sheet._id}>
-                        <th>{index + 1}</th>
-                        <td>{sheet.student.name}</td>
-                        <td>{"7"}</td>
+                        <th>{uid}</th>
+                        <td>{name}</td>
+                        <td>{level}</td>
                         <td>
                           <span
                             className={`badge ${
