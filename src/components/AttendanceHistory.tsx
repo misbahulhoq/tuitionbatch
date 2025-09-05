@@ -1,12 +1,34 @@
 import { useGetAttendanceHistoryQuery } from "@/redux/features/attendance/attendanceApiSlice";
-import React from "react";
+import React, { useCallback, useRef, useState } from "react";
 
 const AttendanceHistory: React.FC = () => {
-  const { data: currentData, isLoading } = useGetAttendanceHistoryQuery();
+  const [limit, setLimit] = useState(10);
+  const { data: currentData, isLoading } = useGetAttendanceHistoryQuery({
+    limit,
+  });
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  const setSentinelRef = useCallback((node: HTMLDivElement | null) => {
+    if (observerRef.current) {
+      observerRef.current.disconnect();
+    }
+
+    if (node) {
+      observerRef.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          setLimit((prev) => prev + 10);
+        }
+      });
+
+      observerRef.current.observe(node);
+    }
+  }, []);
+
   if (!currentData || isLoading) return null;
+  console.log(limit);
   return (
-    <div className="p-4">
-      <div className="mb-4 flex items-center justify-between">
+    <div className="min-h-screen p-4">
+      <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold">Attendance History</h2>
         {/* <select
           className="select select-bordered w-48"
@@ -67,6 +89,8 @@ const AttendanceHistory: React.FC = () => {
           </div>
         );
       })}
+
+      <div ref={setSentinelRef} className="h-10"></div>
     </div>
   );
 };

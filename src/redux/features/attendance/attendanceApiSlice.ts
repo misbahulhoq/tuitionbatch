@@ -11,8 +11,8 @@ const attendanceApiSlice = baseAPI.injectEndpoints({
       }),
       invalidatesTags: ["Attendance"],
     }),
-    getAttendanceHistory: builder.query<AttendanceRecord[], void>({
-      query: () => "/attendance/history",
+    getAttendanceHistory: builder.query<AttendanceRecord[], { limit: number }>({
+      query: (body) => `/attendance/history?limit=${body.limit}`,
       providesTags: ["Attendance"],
     }),
     getTodaysAttendanceSheet: builder.query<void, void>({
