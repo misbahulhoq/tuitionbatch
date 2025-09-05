@@ -41,7 +41,7 @@ const AttendanceHistory: React.FC = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {data.sheet.map((sheet, index) => {
+                  {data.sheet.map((sheet) => {
                     const { student } = sheet || {};
                     const { name, level, uid } = student || {};
                     return (
