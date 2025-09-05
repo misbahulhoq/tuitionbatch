@@ -1,4 +1,5 @@
 import { baseAPI } from "@/redux/api/api";
+import { AttendanceRecord } from "@/types/attendance.type";
 
 const attendanceApiSlice = baseAPI.injectEndpoints({
   endpoints: (builder) => ({
@@ -10,8 +11,21 @@ const attendanceApiSlice = baseAPI.injectEndpoints({
       }),
       invalidatesTags: ["Attendance"],
     }),
-    getAttendanceHistory: builder.query<void, void>({
+    getAttendanceHistory: builder.query<AttendanceRecord[], void>({
       query: () => "/attendance/history",
+      providesTags: ["Attendance"],
+    }),
+    getTodaysAttendanceSheet: builder.query<void, void>({
+      query: () =>
+        `/attendance/current-date?date=${new Date().toLocaleDateString(
+          "en-US",
+          {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          },
+        )}`,
       providesTags: ["Attendance"],
     }),
     updateAttendance: builder.mutation({
@@ -28,6 +42,8 @@ const attendanceApiSlice = baseAPI.injectEndpoints({
 
 export const {
   useCreateAttendanceMutation,
+  useGetTodaysAttendanceSheetQuery,
+  useLazyGetTodaysAttendanceSheetQuery,
   useGetAttendanceHistoryQuery,
   useLazyGetAttendanceHistoryQuery,
   useUpdateAttendanceMutation,

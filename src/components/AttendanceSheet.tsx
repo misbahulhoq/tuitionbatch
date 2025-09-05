@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Spinner from "./loaders/Spinner";
 import {
   useCreateAttendanceMutation,
-  useLazyGetAttendanceHistoryQuery,
+  useLazyGetTodaysAttendanceSheetQuery,
   useUpdateAttendanceMutation,
 } from "@/redux/features/attendance/attendanceApiSlice";
 import Link from "next/link";
@@ -26,12 +26,13 @@ const AttendanceSheet = () => {
   const [createAttendanceSheet] = useCreateAttendanceMutation();
   const [updateAttendance] = useUpdateAttendanceMutation();
   const [triggerGetAttendance, { data: attendanceSheet }] =
-    useLazyGetAttendanceHistoryQuery();
+    useLazyGetTodaysAttendanceSheetQuery();
   console.log(attendanceSheet);
 
   useEffect(() => {
     if (Array.isArray(students)) {
       createAttendanceSheet({
+        date: new Date().toISOString(),
         sheet: students.map((s) => ({ student: s._id })),
       })
         .unwrap()

@@ -1,41 +1,15 @@
 import { useGetAttendanceHistoryQuery } from "@/redux/features/attendance/attendanceApiSlice";
-import React, { useState } from "react";
+import React from "react";
 
-type Student = {
-  id: number;
-  name: string;
-  email: string;
-  status: "present" | "absent";
-};
-
-type AttendanceData = {
-  date: string;
-  students: Student[];
-};
-
-type AttendanceHistoryProps = {
-  data: AttendanceData[];
-};
-
-const getMonthOptions = (data: AttendanceData[]) => {
-  const months = new Set(data.map((entry) => entry.date.slice(0, 7)));
-  return Array.from(months);
-};
-
-const AttendanceHistory: React.FC<AttendanceHistoryProps> = ({ data }) => {
-  const months = getMonthOptions(data);
-  const [selectedMonth, setSelectedMonth] = useState(months[0]);
+const AttendanceHistory: React.FC = () => {
   const { data: currentData, isLoading } = useGetAttendanceHistoryQuery();
-  const filteredData = data.filter((entry) =>
-    entry.date.startsWith(selectedMonth),
-  );
   console.log(currentData);
   if (!currentData || isLoading) return null;
   return (
     <div className="p-4">
       <div className="mb-4 flex items-center justify-between">
         <h2 className="text-xl font-bold">Attendance History</h2>
-        <select
+        {/* <select
           className="select select-bordered w-48"
           value={selectedMonth}
           onChange={(e) => setSelectedMonth(e.target.value)}
@@ -48,11 +22,10 @@ const AttendanceHistory: React.FC<AttendanceHistoryProps> = ({ data }) => {
               })}
             </option>
           ))}
-        </select>
+        </select> */}
       </div>
 
       {currentData.map((data) => {
-        const {} = data.sheet;
         return (
           <div key={data.date} className="mb-6">
             <h3 className="mb-2 text-lg font-semibold">
@@ -70,7 +43,6 @@ const AttendanceHistory: React.FC<AttendanceHistoryProps> = ({ data }) => {
                 </thead>
                 <tbody>
                   {data.sheet.map((sheet, index) => {
-                    console.log(sheet);
                     return (
                       <tr key={sheet._id}>
                         <th>{index + 1}</th>
