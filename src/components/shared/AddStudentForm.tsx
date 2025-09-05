@@ -2,7 +2,7 @@
 import React from "react";
 import { useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
-import { useCreateStudentMutation } from "@/redux/features/studets/studentsApiSlice";
+import { useCreateStudentMutation } from "@/redux/features/students/studentsApiSlice";
 import Swal from "sweetalert2";
 export interface IStudent {
   name: string;

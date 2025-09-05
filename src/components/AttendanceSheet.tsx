@@ -1,10 +1,10 @@
 "use client";
-import { useGetStudentsQuery } from "@/redux/features/studets/studentsApiSlice";
+import { useGetStudentsQuery } from "@/redux/features/students/studentsApiSlice";
 import React, { useEffect, useState } from "react";
 import Spinner from "./loaders/Spinner";
 import {
   useCreateAttendanceMutation,
-  useLazyGetAttendanceQuery,
+  useLazyGetAttendanceHistoryQuery,
   useUpdateAttendanceMutation,
 } from "@/redux/features/attendance/attendanceApiSlice";
 import Link from "next/link";
@@ -26,12 +26,12 @@ const AttendanceSheet = () => {
   const [createAttendanceSheet] = useCreateAttendanceMutation();
   const [updateAttendance] = useUpdateAttendanceMutation();
   const [triggerGetAttendance, { data: attendanceSheet }] =
-    useLazyGetAttendanceQuery();
+    useLazyGetAttendanceHistoryQuery();
   console.log(attendanceSheet);
+
   useEffect(() => {
     if (Array.isArray(students)) {
       createAttendanceSheet({
-        date,
         sheet: students.map((s) => ({ student: s._id })),
       })
         .unwrap()

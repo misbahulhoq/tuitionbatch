@@ -10,8 +10,8 @@ const attendanceApiSlice = baseAPI.injectEndpoints({
       }),
       invalidatesTags: ["Attendance"],
     }),
-    getAttendance: builder.query<void, void>({
-      query: () => "/attendance/current-date",
+    getAttendanceHistory: builder.query<void, void>({
+      query: () => "/attendance/history",
       providesTags: ["Attendance"],
     }),
     updateAttendance: builder.mutation({
@@ -28,7 +28,7 @@ const attendanceApiSlice = baseAPI.injectEndpoints({
 
 export const {
   useCreateAttendanceMutation,
-  useGetAttendanceQuery,
-  useLazyGetAttendanceQuery,
+  useGetAttendanceHistoryQuery,
+  useLazyGetAttendanceHistoryQuery,
   useUpdateAttendanceMutation,
 } = attendanceApiSlice;

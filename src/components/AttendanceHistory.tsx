@@ -1,3 +1,4 @@
+import { useGetAttendanceHistoryQuery } from "@/redux/features/attendance/attendanceApiSlice";
 import React, { useState } from "react";
 
 type Student = {
@@ -8,7 +9,7 @@ type Student = {
 };
 
 type AttendanceData = {
-  date: string; // ISO date string, e.g., "2025-04-01"
+  date: string;
   students: Student[];
 };
 
@@ -17,20 +18,19 @@ type AttendanceHistoryProps = {
 };
 
 const getMonthOptions = (data: AttendanceData[]) => {
-  const months = new Set(
-    data.map((entry) => entry.date.slice(0, 7)), // YYYY-MM
-  );
+  const months = new Set(data.map((entry) => entry.date.slice(0, 7)));
   return Array.from(months);
 };
 
 const AttendanceHistory: React.FC<AttendanceHistoryProps> = ({ data }) => {
   const months = getMonthOptions(data);
   const [selectedMonth, setSelectedMonth] = useState(months[0]);
-
+  const { data: currentData, isLoading } = useGetAttendanceHistoryQuery();
   const filteredData = data.filter((entry) =>
     entry.date.startsWith(selectedMonth),
   );
-
+  console.log(currentData);
+  if (!currentData || isLoading) return null;
   return (
     <div className="p-4">
       <div className="mb-4 flex items-center justify-between">
@@ -51,48 +51,49 @@ const AttendanceHistory: React.FC<AttendanceHistoryProps> = ({ data }) => {
         </select>
       </div>
 
-      {filteredData.map((entry) => (
-        <div key={entry.date} className="mb-6">
-          <h3 className="mb-2 text-lg font-semibold">
-            {new Date(entry.date).toDateString()}
-          </h3>
-          <div className="overflow-x-auto">
-            <table className="table-zebra table w-full">
-              <thead>
-                <tr>
-                  <th>UID</th>
-                  <th>Name</th>
-                  {/* <th>Email</th> */}
-                  <th>Class</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {entry.students.map((student, index) => (
-                  <tr key={student.id}>
-                    <th>{index + 1}</th>
-                    <td>{student.name}</td>
-                    <td>{"7"}</td>
-                    {/* <td>{student.email}</td> */}
-                    <td>
-                      <span
-                        className={`badge ${
-                          student.status === "present"
-                            ? "badge-success"
-                            : "badge-error"
-                        }`}
-                      >
-                        {student.status.charAt(0).toUpperCase() +
-                          student.status.slice(1)}
-                      </span>
-                    </td>
+      {currentData.map((data) => {
+        const {} = data.sheet;
+        return (
+          <div key={data.date} className="mb-6">
+            <h3 className="mb-2 text-lg font-semibold">
+              {new Date(data.date).toDateString()}
+            </h3>
+            <div className="overflow-x-auto">
+              <table className="table-zebra table w-full">
+                <thead>
+                  <tr>
+                    <th>UID</th>
+                    <th>Name</th>
+                    <th>Class</th>
+                    <th>Status</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {data.sheet.map((sheet, index) => {
+                    console.log(sheet);
+                    return (
+                      <tr key={sheet._id}>
+                        <th>{index + 1}</th>
+                        <td>{sheet.student.name}</td>
+                        <td>{"7"}</td>
+                        <td>
+                          <span
+                            className={`badge ${
+                              sheet.present ? "badge-success" : "badge-error"
+                            }`}
+                          >
+                            {sheet.present ? "Present" : "Absent"}
+                          </span>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };
