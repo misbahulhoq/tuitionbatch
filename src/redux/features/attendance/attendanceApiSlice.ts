@@ -11,8 +11,14 @@ const attendanceApiSlice = baseAPI.injectEndpoints({
       }),
       invalidatesTags: ["Attendance"],
     }),
-    getAttendanceHistory: builder.query<AttendanceRecord[], { limit: number }>({
-      query: (body) => `/attendance/history?limit=${body.limit}`,
+    getAttendanceHistory: builder.query<
+      { attendance: AttendanceRecord[]; monthFilter: string[] },
+      { limit: number; month?: string }
+    >({
+      query: (body) => ({
+        url: `/attendance/history?limit=${body.limit}${body.month ? `&month=${body.month}` : ""}`,
+        method: "GET",
+      }),
       providesTags: ["Attendance"],
     }),
     getTodaysAttendanceSheet: builder.query<void, void>({

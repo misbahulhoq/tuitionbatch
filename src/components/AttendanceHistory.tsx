@@ -3,8 +3,11 @@ import React, { useCallback, useRef, useState } from "react";
 
 const AttendanceHistory: React.FC = () => {
   const [limit, setLimit] = useState(10);
-  const { data: currentData, isLoading } = useGetAttendanceHistoryQuery({
+  const [selectedMonth, setSelectedMonth] = useState<string>();
+
+  const { data, isLoading } = useGetAttendanceHistoryQuery({
     limit,
+    month: selectedMonth,
   });
   const observerRef = useRef<IntersectionObserver | null>(null);
 
@@ -24,18 +27,19 @@ const AttendanceHistory: React.FC = () => {
     }
   }, []);
 
-  if (!currentData || isLoading) return null;
-  console.log(limit);
+  if (!data || isLoading) return null;
+  console.log(Boolean(selectedMonth));
   return (
-    <div className="min-h-screen p-4">
-      <div className="flex items-center justify-between">
+    <div className="p-4">
+      <div className="mb-4 flex items-center justify-between">
         <h2 className="text-xl font-bold">Attendance History</h2>
-        {/* <select
+        <select
           className="select select-bordered w-48"
-          value={selectedMonth}
+          value={selectedMonth as string}
           onChange={(e) => setSelectedMonth(e.target.value)}
         >
-          {months.map((month) => (
+          <option value="All">All month</option>
+          {data?.monthFilter?.map((month) => (
             <option key={month} value={month}>
               {new Date(month + "-01").toLocaleString("default", {
                 month: "long",
@@ -43,10 +47,10 @@ const AttendanceHistory: React.FC = () => {
               })}
             </option>
           ))}
-        </select> */}
+        </select>
       </div>
 
-      {currentData.map((data) => {
+      {data?.attendance?.map((data) => {
         return (
           <div key={data.date} className="mb-6">
             <h3 className="mb-2 text-lg font-semibold">
