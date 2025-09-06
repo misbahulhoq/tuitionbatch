@@ -4,7 +4,6 @@ import React, { useCallback, useRef, useState } from "react";
 const AttendanceHistory: React.FC = () => {
   const [limit, setLimit] = useState(10);
   const [selectedMonth, setSelectedMonth] = useState<string>();
-
   const { data, isLoading } = useGetAttendanceHistoryQuery({
     limit,
     month: selectedMonth,
@@ -28,7 +27,6 @@ const AttendanceHistory: React.FC = () => {
   }, []);
 
   if (!data || isLoading) return null;
-  console.log(Boolean(selectedMonth));
   return (
     <div className="p-4">
       <div className="mb-4 flex items-center justify-between">
