@@ -27,10 +27,9 @@ const AttendanceSheet = () => {
   const [updateAttendance] = useUpdateAttendanceMutation();
   const [triggerGetAttendance, { data: attendanceSheet }] =
     useLazyGetTodaysAttendanceSheetQuery();
-  console.log(attendanceSheet);
 
   useEffect(() => {
-    if (Array.isArray(students)) {
+    if (Array.isArray(students) && students.length > 0) {
       createAttendanceSheet({
         date: new Date().toISOString(),
         sheet: students.map((s) => ({ student: s._id })),

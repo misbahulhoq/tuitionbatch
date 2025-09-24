@@ -30,17 +30,6 @@ const LoginPage = () => {
           <FcGoogle size={24} />
           Login with Google
         </button>
-        {/* <div className="py-3">
-          <span className="divider divide-primary">or</span>
-        </div> */}
-
-        {/* <Link href={`/signup`} className="mb-6 block text-lg">
-          Continue with Email
-        </Link> */}
-
-        {/* change popover-1 and --anchor-1 names. Use unique names for each dropdown */}
-        {/* For TSX uncomment the commented types below */}
-        {/* <button className="btn btn-lg">You are logging in as a {role}</button> */}
       </div>
     </div>
   );

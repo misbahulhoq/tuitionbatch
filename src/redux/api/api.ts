@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { getSession } from "next-auth/react";
 
 export const baseURL =
   process.env.NODE_ENV === "development"
@@ -11,11 +12,16 @@ export const baseAPI = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: baseURL,
     credentials: "include",
-    prepareHeaders: (headers) => {
+    prepareHeaders: async (headers) => {
+      const session = await getSession();
       const authToken = localStorage.getItem("authToken");
-      const email = localStorage.getItem("email");
+      const email = session?.user?.email;
       if (authToken) headers.set("authToken", authToken);
-      if (email) headers.set("email", email);
+      if (email) {
+        console.log(email, Boolean(email));
+        headers.set("email", email);
+      }
+      console.log(headers);
       return headers;
     },
   }),
