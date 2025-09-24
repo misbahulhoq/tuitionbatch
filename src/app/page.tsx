@@ -8,7 +8,6 @@ const HomePage = () => {
   const { data: session, status } = useSession();
 
   useEffect(() => {
-    // Set the teacher's email in localStorage
     const teachersEmail = session?.user?.email;
     localStorage.setItem("email", teachersEmail as string);
     async function biometricCheck() {

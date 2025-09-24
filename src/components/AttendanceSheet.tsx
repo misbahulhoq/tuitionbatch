@@ -8,17 +8,7 @@ import {
   useUpdateAttendanceMutation,
 } from "@/redux/features/attendance/attendanceApiSlice";
 import Link from "next/link";
-type Sheet = {
-  student: {
-    _id: string;
-    name: string;
-    uid: string;
-    level: string;
-    teacher: string;
-  };
-  present: boolean;
-  _id: string;
-};
+import { Sheet } from "@/types/attendance.type";
 
 const AttendanceSheet = () => {
   const [date] = useState(new Date());
@@ -72,18 +62,12 @@ const AttendanceSheet = () => {
       <h1 className="mb-4 text-center text-2xl font-bold">Attendance Sheet</h1>
       <div className="mb-3 flex justify-center">
         <h2>{date.toDateString()}</h2>
-        {/* <input
-          type="datetime-local"
-          onChange={(e) => {
-            setDate(new Date(e.target.value));
-          }}
-        /> */}
       </div>
 
       <table className="w-full">
         <thead>
           <tr className="bg-base-300">
-            <th className="px-4 py-2">UID</th>
+            <th className="px-4 py-2">ID</th>
             <th className="px-4 py-2">Name</th>
             <th className="px-4 py-2">Status</th>
           </tr>
