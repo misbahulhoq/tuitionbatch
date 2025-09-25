@@ -21,7 +21,7 @@ const attendanceApiSlice = baseAPI.injectEndpoints({
       }),
       providesTags: ["Attendance"],
     }),
-    getTodaysAttendanceSheet: builder.query<void, void>({
+    getTodaysAttendanceSheet: builder.query<AttendanceRecord, void>({
       query: () =>
         `/attendance/current-date?date=${new Date().toLocaleDateString(
           "en-US",
