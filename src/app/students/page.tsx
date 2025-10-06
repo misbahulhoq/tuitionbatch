@@ -1,4 +1,5 @@
 "use client";
+import FaceEnrollment from "@/components/FaceEnrollment";
 import Spinner from "@/components/loaders/Spinner";
 import AddStudentForm from "@/components/shared/AddStudentForm";
 import {
@@ -116,6 +117,7 @@ const StudentCard = ({ props }: { props: IStudent }) => {
           >
             Update
           </button>
+          <FaceEnrollment />
           <dialog id="update_student_modal" className="modal">
             <div className="modal-box">
               <UpdateStudentForm

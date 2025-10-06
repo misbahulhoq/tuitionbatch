@@ -9,12 +9,10 @@ const HomePage = () => {
 
   useEffect(() => {
     const teachersEmail = session?.user?.email;
-    localStorage.setItem("email", teachersEmail as string);
-    async function biometricCheck() {
-      const capabilities = await PublicKeyCredential.getClientCapabilities();
-      console.log(capabilities);
+    const emailExists = localStorage.getItem("email");
+    if (!emailExists || emailExists === "undefined") {
+      localStorage.setItem("email", teachersEmail as string);
     }
-    biometricCheck();
   }, [session, status]);
 
   if (session === undefined) return null;

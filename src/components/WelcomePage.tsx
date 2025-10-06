@@ -2,9 +2,12 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import FaceEnrollment from "./FaceEnrollment";
+
 const WelcomePage = () => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-indigo-100 to-purple-100">
+      <FaceEnrollment />
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}

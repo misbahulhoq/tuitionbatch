@@ -1,0 +1,99 @@
+"use client";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import * as faceapi from "face-api.js";
+import Webcam from "react-webcam";
+import { useUpdateStudentByIdMutation } from "@/redux/features/students/studentsApiSlice";
+import Swal from "sweetalert2";
+const videoConstraints = {
+  width: 1280,
+  height: 720,
+  facingMode: "user",
+};
+const FaceEnrollment = () => {
+  const webcamRef = useRef<Webcam>(null);
+  const [isWebcamReady, setIsWebcamReady] = useState(false);
+  const [updateStudentById] = useUpdateStudentByIdMutation();
+  useEffect(() => {
+    const loadModels = async () => {
+      const MODEL_URL = "/model";
+      await Promise.all([
+        faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+        faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
+        faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
+      ]);
+      console.log("Models loaded");
+    };
+    loadModels();
+  }, []);
+
+  const handleEnroll = useCallback(async () => {
+    if (!webcamRef.current) {
+      Swal.fire({ icon: "error", title: "Webcam current not found." });
+      return;
+    }
+    const imageSrc = webcamRef.current.getScreenshot({
+      width: 1920,
+      height: 1080,
+    });
+    if (!imageSrc) {
+      Swal.fire({ icon: "error", title: "Image src not found." });
+      return;
+    }
+    const img = new Image();
+    img.src = imageSrc;
+    img.onload = async () => {
+      const detections = await faceapi
+        .detectSingleFace(img, new faceapi.TinyFaceDetectorOptions())
+        .withFaceLandmarks()
+        .withFaceDescriptor();
+
+      if (detections) {
+        console.log("Face detected, saving descriptor");
+        updateStudentById({
+          _id: "67f7304f051a445553045d32",
+          name: "Siyam",
+          uid: "102",
+          level: "8",
+          teacher: "extraordinarymisbah@gmail.com",
+          descriptions: [Array.from(detections.descriptor)],
+          __v: 0,
+          isDeleted: false,
+        })
+          .unwrap()
+          .then((data) => {
+            console.log(data);
+          });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "No face detected.",
+        });
+      }
+    };
+  }, [webcamRef]);
+  return (
+    <div>
+      <Webcam
+        audio={false}
+        ref={webcamRef}
+        screenshotFormat="image/jpeg"
+        width={320}
+        height={240}
+        videoConstraints={videoConstraints}
+        onUserMedia={() => {
+          setIsWebcamReady(true);
+        }}
+      />
+
+      <button
+        onClick={handleEnroll}
+        className="btn btn-primary"
+        disabled={!isWebcamReady}
+      >
+        {isWebcamReady ? "Enroll Student." : "Waiting for web cam."}
+      </button>
+    </div>
+  );
+};
+
+export default FaceEnrollment;
