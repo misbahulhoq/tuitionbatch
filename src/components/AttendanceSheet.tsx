@@ -5,7 +5,6 @@ import Spinner from "./loaders/Spinner";
 import {
   useCreateAttendanceMutation,
   useLazyGetTodaysAttendanceSheetQuery,
-  useUpdateAttendanceMutation,
 } from "@/redux/features/attendance/attendanceApiSlice";
 import Link from "next/link";
 import { Sheet } from "@/types/attendance.type";
@@ -15,7 +14,6 @@ const AttendanceSheet = () => {
   const [date] = useState(new Date());
   const { data: students, isLoading } = useGetStudentsQuery();
   const [createAttendanceSheet] = useCreateAttendanceMutation();
-  const [updateAttendance] = useUpdateAttendanceMutation();
   const [triggerGetAttendance, { data: attendanceRecord }] =
     useLazyGetTodaysAttendanceSheetQuery();
 
@@ -34,14 +32,6 @@ const AttendanceSheet = () => {
         });
     }
   }, [students, createAttendanceSheet, date, triggerGetAttendance]);
-
-  const toggleAttendance = (studentId: string) => {
-    if (attendanceRecord)
-      updateAttendance({
-        attendanceId: attendanceRecord._id,
-        studentId,
-      });
-  };
 
   if (isLoading) return <Spinner />;
 
