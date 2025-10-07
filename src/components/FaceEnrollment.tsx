@@ -13,12 +13,14 @@ const FaceEnrollment = () => {
   const webcamRef = useRef<Webcam>(null);
   const [isWebcamReady, setIsWebcamReady] = useState(false);
   const [updateStudentById] = useUpdateStudentByIdMutation();
-  const [camOpen, setCamOpen] = useState(false);
+  const [isCamOpen, setIsCamOpen] = useState(false);
+  const [areModelsReady, setAreModelsReady] = useState(false);
+
   useEffect(() => {
     const loadModels = async () => {
       const MODEL_URL = "/model";
       await Promise.all([
-        faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL),
+        faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL),
         faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
         faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
       ]);
@@ -44,7 +46,7 @@ const FaceEnrollment = () => {
     img.src = imageSrc;
     img.onload = async () => {
       const detections = await faceapi
-        .detectSingleFace(img, new faceapi.TinyFaceDetectorOptions())
+        .detectSingleFace(img, new faceapi.SsdMobilenetv1Options())
         .withFaceLandmarks()
         .withFaceDescriptor();
 
@@ -80,7 +82,7 @@ const FaceEnrollment = () => {
         screenshotFormat="image/jpeg"
         width={300}
         height={100}
-        className={`rounded-full ${camOpen ? "block" : "hidden"}`}
+        className={`rounded-full ${isCamOpen ? "block" : "hidden"}`}
         videoConstraints={videoConstraints}
         onUserMedia={() => {
           setIsWebcamReady(true);
@@ -89,7 +91,7 @@ const FaceEnrollment = () => {
 
       <button
         onClick={() => {
-          setCamOpen(!camOpen);
+          setIsCamOpen(!isCamOpen);
           handleEnroll();
         }}
         className="btn btn-primary"
