@@ -14,7 +14,7 @@ const FaceEnrollment = () => {
   const [isWebcamReady, setIsWebcamReady] = useState(false);
   const [updateStudentById] = useUpdateStudentByIdMutation();
   const [isCamOpen, setIsCamOpen] = useState(false);
-  const [areModelsReady, setAreModelsReady] = useState(false);
+  // const [areModelsReady, setAreModelsReady] = useState(false);
 
   useEffect(() => {
     const loadModels = async () => {
