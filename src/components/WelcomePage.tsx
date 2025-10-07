@@ -2,7 +2,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import FaceEnrollment from "./FaceEnrollment";
 
 const WelcomePage = () => {
   return (
