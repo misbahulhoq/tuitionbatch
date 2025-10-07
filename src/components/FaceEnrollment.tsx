@@ -13,6 +13,7 @@ const FaceEnrollment = () => {
   const webcamRef = useRef<Webcam>(null);
   const [isWebcamReady, setIsWebcamReady] = useState(false);
   const [updateStudentById] = useUpdateStudentByIdMutation();
+  const [camOpen, setCamOpen] = useState(false);
   useEffect(() => {
     const loadModels = async () => {
       const MODEL_URL = "/model";
@@ -79,7 +80,7 @@ const FaceEnrollment = () => {
         screenshotFormat="image/jpeg"
         width={300}
         height={100}
-        className="rounded-full"
+        className={`rounded-full ${camOpen ? "block" : "hidden"}`}
         videoConstraints={videoConstraints}
         onUserMedia={() => {
           setIsWebcamReady(true);
@@ -87,7 +88,10 @@ const FaceEnrollment = () => {
       />
 
       <button
-        onClick={handleEnroll}
+        onClick={() => {
+          setCamOpen(!camOpen);
+          handleEnroll();
+        }}
         className="btn btn-primary"
         disabled={!isWebcamReady}
       >
