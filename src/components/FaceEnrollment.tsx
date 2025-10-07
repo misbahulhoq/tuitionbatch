@@ -9,7 +9,7 @@ const videoConstraints = {
   height: 720,
   facingMode: "user",
 };
-const FaceEnrollment = () => {
+const FaceEnrollment = ({ studentId }: { studentId: string }) => {
   const webcamRef = useRef<Webcam>(null);
   const [isWebcamReady, setIsWebcamReady] = useState(false);
   const [updateStudentById] = useUpdateStudentByIdMutation();
@@ -53,18 +53,18 @@ const FaceEnrollment = () => {
       if (detections) {
         Swal.fire({ icon: "success", title: "Detections is there." });
         updateStudentById({
-          _id: "67f7304f051a445553045d32",
-          name: "Siyam",
-          uid: "102",
-          level: "8",
-          teacher: "extraordinarymisbah@gmail.com",
+          _id: studentId,
           descriptions: [Array.from(detections.descriptor)],
-          __v: 0,
-          isDeleted: false,
         })
           .unwrap()
           .then((data) => {
             console.log(data);
+            if (data.success) {
+              Swal.fire({
+                icon: "success",
+                title: "Face enrolled successfully.",
+              });
+            }
           });
       } else {
         Swal.fire({
