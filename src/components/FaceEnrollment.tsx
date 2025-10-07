@@ -48,7 +48,7 @@ const FaceEnrollment = () => {
         .withFaceDescriptor();
 
       if (detections) {
-        console.log("Face detected, saving descriptor");
+        Swal.fire({ icon: "success", title: "Detections is there." });
         updateStudentById({
           _id: "67f7304f051a445553045d32",
           name: "Siyam",
@@ -77,8 +77,9 @@ const FaceEnrollment = () => {
         audio={false}
         ref={webcamRef}
         screenshotFormat="image/jpeg"
-        width={320}
-        height={240}
+        width={300}
+        height={100}
+        className="rounded-full"
         videoConstraints={videoConstraints}
         onUserMedia={() => {
           setIsWebcamReady(true);

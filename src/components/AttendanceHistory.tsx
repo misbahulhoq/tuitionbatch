@@ -34,7 +34,13 @@ const AttendanceHistory: React.FC = () => {
         <select
           className="select select-bordered w-48"
           value={selectedMonth as string}
-          onChange={(e) => setSelectedMonth(e.target.value)}
+          onChange={(e) => {
+            if (e.target.value === "All") {
+              setSelectedMonth(undefined);
+            } else {
+              setSelectedMonth(e.target.value);
+            }
+          }}
         >
           <option value="All">All month</option>
           {data?.monthFilter?.map((month) => (
