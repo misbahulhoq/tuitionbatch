@@ -112,7 +112,12 @@ const StudentCard = ({ props }: { props: Student }) => {
           >
             Update
           </button>
-          <FaceEnrollment studentId={_id} />
+
+          {descriptions ? (
+            "Face already enrolled."
+          ) : (
+            <FaceEnrollment studentId={_id} />
+          )}
           <dialog id="update_student_modal" className="modal">
             <div className="modal-box">
               <UpdateStudentForm
