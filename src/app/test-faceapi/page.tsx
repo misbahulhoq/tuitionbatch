@@ -63,11 +63,13 @@ const FaceApiTest: React.FC = (): JSX.Element | null => {
       if (detection) {
         // If a face is found, the test is a success.
         const { age, gender, expressions } = detection;
+        const dominantExpression = (
+          Object.keys(expressions) as Array<keyof typeof expressions>
+        ).reduce((a, b) => (expressions[a] > expressions[b] ? a : b));
+
         const resultText = `✅ Success! Detected a ${gender} face, around ${Math.round(
           age,
-        )} years old, showing a(n) ${Object.keys(expressions).reduce((a, b) =>
-          expressions[a] > expressions[b] ? a : b,
-        )} expression.`;
+        )} years old, showing a(n) ${dominantExpression} expression.`;
         setDetectionResult(resultText);
       } else {
         // If no face is found, the test fails.
