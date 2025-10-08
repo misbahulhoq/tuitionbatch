@@ -1,11 +1,4 @@
-export type Student = {
-  _id: string;
-  name: string;
-  uid: string;
-  isDeleted: boolean;
-  level: string;
-  teacher: string;
-};
+import { Student } from "./student.type";
 
 type SheetEntry = {
   student: Student;

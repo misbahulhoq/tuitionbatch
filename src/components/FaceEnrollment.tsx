@@ -75,7 +75,7 @@ const FaceEnrollment = ({ studentId }: { studentId: string }) => {
         });
       }
     };
-  }, [webcamRef, updateStudentById]);
+  }, [webcamRef, updateStudentById, studentId]);
   return (
     <div>
       <Webcam

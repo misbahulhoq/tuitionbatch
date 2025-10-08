@@ -6,6 +6,7 @@ import {
   useDeleteStudentByIdMutation,
   useGetStudentsQuery,
 } from "@/redux/features/students/studentsApiSlice";
+import { Student } from "@/types/student.type";
 import React from "react";
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
@@ -57,14 +58,8 @@ const StudentsPage = () => {
 
 export default StudentsPage;
 
-interface IStudent {
-  _id: string;
-  name: string;
-  level: number;
-  uid: string;
-}
-const StudentCard = ({ props }: { props: IStudent }) => {
-  const { _id, name, level, uid } = props || {};
+const StudentCard = ({ props }: { props: Student }) => {
+  const { _id, name, level, uid, teacher, descriptions } = props || {};
   const [deleteStudentById] = useDeleteStudentByIdMutation();
 
   const handleDelete = (_id: string) => {
@@ -125,6 +120,9 @@ const StudentCard = ({ props }: { props: IStudent }) => {
                 name={name}
                 level={level}
                 uid={uid}
+                isDeleted
+                teacher={teacher}
+                descriptions={descriptions}
               />
               <div className="modal-action">
                 <button
@@ -146,13 +144,13 @@ const StudentCard = ({ props }: { props: IStudent }) => {
   );
 };
 
-const UpdateStudentForm = ({ name, level }: IStudent) => {
+const UpdateStudentForm = ({ name, level }: Student) => {
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm<IStudent>({ defaultValues: { name, level } });
-  const updateStudent = (data: IStudent) => {
+  } = useForm<Student>({ defaultValues: { name, level } });
+  const updateStudent = (data: Student) => {
     console.log(data);
   };
   return (

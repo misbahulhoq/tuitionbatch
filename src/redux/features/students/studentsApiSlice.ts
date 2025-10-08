@@ -1,8 +1,9 @@
 import { baseAPI } from "@/redux/api/api";
+import { Student } from "@/types/student.type";
 
 const studentApiSlice = baseAPI.injectEndpoints({
   endpoints: (builder) => ({
-    getStudents: builder.query<void, void>({
+    getStudents: builder.query<Student[], void>({
       query: () => "/students",
       providesTags: ["Students"],
     }),
