@@ -65,9 +65,7 @@ const AttendanceSheet = () => {
         <h2>{date.toDateString()}</h2>
       </div>
 
-      <div className={`${isFaceMatcherOpen ? "block" : "hidden"}`}>
-        <FaceMatcher />
-      </div>
+      {isFaceMatcherOpen && <FaceMatcher />}
 
       <table className="w-full">
         <thead>
