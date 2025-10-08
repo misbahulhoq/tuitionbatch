@@ -42,7 +42,7 @@ const FaceEnrollment = ({ studentId }: { studentId: string }) => {
   const saveEnrollMent = useCallback(
     (finalDescriptors: Float32Array[]) => {
       const descriptorsAsArray = finalDescriptors.map((d) => Array.from(d));
-      updateStudentById({ _id: studentId, descriptors: descriptorsAsArray })
+      updateStudentById({ _id: studentId, descriptions: descriptorsAsArray })
         .unwrap()
         .then((data) => {
           if (data.success) {
