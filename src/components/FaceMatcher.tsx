@@ -61,13 +61,23 @@ const FaceMatcher = () => {
 
         if (detection) {
           const bestMatch = faceMatcher.findBestMatch(detection.descriptor);
-          Swal.fire({
-            icon: "success",
-            title: "Face detected.",
-            titleText: bestMatch.toString(),
-          });
-          <Speech text={bestMatch.toString()} />;
-          setIdentifiedStudent(bestMatch.toString());
+          const { label, distance } = bestMatch;
+          const confidence = Math.round((1 - distance) * 100);
+          if (label === "unknown") {
+            Swal.fire({
+              icon: "error",
+              title: "Person is not matched.",
+              text: `${confidence}`,
+            });
+          } else {
+            Swal.fire({
+              icon: "success",
+              title: "Face detected.",
+              titleText: bestMatch.toString(),
+            });
+            <Speech text={label} />;
+          }
+          setIdentifiedStudent(label);
         } else {
           Swal.fire({ icon: "error", title: "No face detected." });
           setIdentifiedStudent("Unknown.");
