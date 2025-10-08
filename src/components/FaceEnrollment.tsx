@@ -144,7 +144,7 @@ const FaceEnrollment = ({ studentId }: { studentId: string }) => {
 
       <button
         onClick={() => {
-          setIsCamOpen(!isCamOpen);
+          setIsCamOpen(true);
           handleCapture();
         }}
         className="btn btn-primary"
