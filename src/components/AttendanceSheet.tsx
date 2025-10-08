@@ -9,6 +9,7 @@ import {
 import Link from "next/link";
 import { Sheet } from "@/types/attendance.type";
 import AttendanceRow from "./attendance/AttendanceRow";
+import { FaCamera } from "react-icons/fa";
 
 const AttendanceSheet = () => {
   const [date] = useState(new Date());
@@ -46,7 +47,15 @@ const AttendanceSheet = () => {
 
   return (
     <div className="mx-auto mt-5 max-w-2xl rounded-lg text-lg">
-      <h1 className="mb-4 text-center text-2xl font-bold">Attendance Sheet</h1>
+      <div className="flex items-center justify-between">
+        <h1 className="mb-4 text-center text-2xl font-bold">
+          Attendance Sheet
+        </h1>
+        <button>
+          <FaCamera />
+        </button>
+      </div>
+
       <div className="mb-3 flex justify-center">
         <h2>{date.toDateString()}</h2>
       </div>

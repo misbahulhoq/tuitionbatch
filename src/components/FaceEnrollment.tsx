@@ -63,6 +63,8 @@ const FaceEnrollment = ({ studentId }: { studentId: string }) => {
               Swal.fire({
                 icon: "success",
                 title: "Face enrolled successfully.",
+              }).then(() => {
+                setIsCamOpen(false);
               });
             }
           });
