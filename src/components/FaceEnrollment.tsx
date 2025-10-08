@@ -131,6 +131,7 @@ const FaceEnrollment = ({ studentId }: { studentId: string }) => {
       </p>
       <Webcam
         audio={false}
+        mirrored={true}
         ref={webcamRef}
         screenshotFormat="image/jpeg"
         width={300}
