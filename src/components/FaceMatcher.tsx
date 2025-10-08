@@ -93,7 +93,13 @@ const FaceMatcher = () => {
   }, [students]);
   return (
     <div className="flex flex-col items-center">
-      <Webcam audio={false} ref={webcamRef} width={480} height={360} />
+      <Webcam
+        audio={false}
+        ref={webcamRef}
+        width={480}
+        height={360}
+        dir="ltr"
+      />
       <h3>Identified: {isReady ? identifiedStudent : "Loading models..."}</h3>
     </div>
   );
