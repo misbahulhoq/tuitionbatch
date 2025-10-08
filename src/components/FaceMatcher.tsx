@@ -98,7 +98,7 @@ const FaceMatcher = () => {
         ref={webcamRef}
         width={480}
         height={360}
-        dir="ltr"
+        mirrored={true}
       />
       <h3>Identified: {isReady ? identifiedStudent : "Loading models..."}</h3>
     </div>
