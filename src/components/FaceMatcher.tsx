@@ -68,6 +68,7 @@ const FaceMatcher = () => {
           const { label, distance } = bestMatch;
           const confidence = Math.round((1 - distance) * 100);
           if (label === "unknown") {
+            <Speech text={"Person is not matched."} autoPlay={true} />;
             toast.error("Person is not matched." + `${confidence}%`, {
               duration: 2000,
             });
@@ -79,7 +80,9 @@ const FaceMatcher = () => {
           }
           setIdentifiedStudent(label);
         } else {
-          Swal.fire({ icon: "error", title: "No face detected." });
+          toast.error("No face detected.", {
+            duration: 2000,
+          });
           setIdentifiedStudent("Unknown.");
         }
       }, 2000);
