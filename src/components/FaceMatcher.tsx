@@ -60,6 +60,11 @@ const FaceMatcher = () => {
 
         if (detection) {
           const bestMatch = faceMatcher.findBestMatch(detection.descriptor);
+          Swal.fire({
+            icon: "success",
+            title: "Face detected.",
+            titleText: bestMatch.toString(),
+          });
           setIdentifiedStudent(bestMatch.toString());
         } else {
           Swal.fire({ icon: "error", title: "No face detected." });
