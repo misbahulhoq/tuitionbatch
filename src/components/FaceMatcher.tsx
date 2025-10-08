@@ -59,6 +59,7 @@ const FaceMatcher = () => {
           const bestMatch = faceMatcher.findBestMatch(detection.descriptor);
           setIdentifiedStudent(bestMatch.toString());
         } else {
+          Swal.fire({ icon: "error", title: "No face detected." });
           setIdentifiedStudent("Unknown.");
         }
       }, 2000);
