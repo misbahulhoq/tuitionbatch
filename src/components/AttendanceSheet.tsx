@@ -47,9 +47,9 @@ const AttendanceSheet = () => {
 
   return (
     <div className="mx-auto mt-5 max-w-2xl rounded-lg text-lg">
-      <div className="mb-4 flex items-center justify-between">
+      <div className="mb-4 flex items-center justify-center gap-4">
         <h1 className="text-center text-2xl font-bold">Attendance Sheet</h1>
-        <button className="btn btn-sm btn-outline btn-primary">
+        <button className="btn btn-outline">
           <FaCamera size={20} />
         </button>
       </div>
