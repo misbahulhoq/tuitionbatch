@@ -66,7 +66,6 @@ const FaceApiTest: React.FC = (): JSX.Element | null => {
         const dominantExpression = (
           Object.keys(expressions) as Array<keyof typeof expressions>
         ).reduce((a, b) => (expressions[a] > expressions[b] ? a : b));
-
         const resultText = `✅ Success! Detected a ${gender} face, around ${Math.round(
           age,
         )} years old, showing a(n) ${dominantExpression} expression.`;
@@ -77,7 +76,7 @@ const FaceApiTest: React.FC = (): JSX.Element | null => {
       }
     };
   };
-  if (process.env.NODE_ENV === "production") {
+  if (process.env.NODE_ENV !== "production") {
     return null;
   } else {
     return (
