@@ -38,7 +38,7 @@ const FaceMatcher = () => {
       setIsReady(true);
       Swal.fire({ icon: "success", title: "Matcher is ready." });
 
-      return new faceapi.FaceMatcher(labeledFaceDescriptors, 0.6);
+      return new faceapi.FaceMatcher(labeledFaceDescriptors, 0.5);
     };
 
     const runDetection = async () => {
