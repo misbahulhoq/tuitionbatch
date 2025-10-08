@@ -39,7 +39,10 @@ const FaceMatcher = () => {
 
     const runDetection = async () => {
       const faceMatcher = await setupFaceMatcher();
-      if (!faceMatcher) return;
+      if (!faceMatcher) {
+        Swal.fire({ icon: "error", title: "No face matcher found." });
+        return;
+      }
 
       const interval = setInterval(async () => {
         const detection = await faceapi
