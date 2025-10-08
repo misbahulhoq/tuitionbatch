@@ -4,6 +4,7 @@ import * as faceapi from "face-api.js";
 import Webcam from "react-webcam";
 import { useUpdateStudentByIdMutation } from "@/redux/features/students/studentsApiSlice";
 import Swal from "sweetalert2";
+import toast from "react-hot-toast";
 const videoConstraints = {
   width: 1280,
   height: 720,
@@ -13,6 +14,9 @@ const videoConstraints = {
 // Define the directions for the user
 const DIRECTIONS = [
   "Please Look Straight at the Camera",
+  "Please Look Straight at the Camera with a Smile.",
+  "Please Look Straight at the camera normally",
+  "Please Look again Straight at the camera normally",
   "Please Look Slightly to Your Left",
   "Please Look Slightly to Your Right",
 ];
@@ -106,6 +110,9 @@ const FaceEnrollment = ({ studentId }: { studentId: string }) => {
           Swal.fire({ icon: "info", title: "All photos captured. Saving.." });
           saveEnrollMent(newDescriptors);
         } else {
+          toast.success(
+            `Photo ${newDescriptors.length} of ${DIRECTIONS.length} captured successfully.`,
+          );
           setCaptureStep((prevStep) => prevStep + 1);
         }
       } else {
@@ -119,7 +126,7 @@ const FaceEnrollment = ({ studentId }: { studentId: string }) => {
   }, [webcamRef, descriptors, saveEnrollMent]);
 
   return (
-    <div>
+    <div className="pt-3.5">
       {/* Display the current direction to the user */}
       {captureStep < DIRECTIONS.length && (
         <h3 style={{ color: "#1976d2" }}>{DIRECTIONS[captureStep]}</h3>
