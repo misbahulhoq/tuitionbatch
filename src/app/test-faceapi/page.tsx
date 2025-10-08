@@ -16,7 +16,7 @@ const FaceApiTest: React.FC = (): JSX.Element | null => {
   // This useEffect hook loads all the necessary models when the component mounts.
   useEffect(() => {
     const loadModels = async () => {
-      const MODEL_URL = "/models"; // Ensure models are in your public/models folder
+      const MODEL_URL = "/model"; // Ensure models are in your public/models folder
       try {
         await Promise.all([
           faceapi.nets.ssdMobilenetv1.loadFromUri(MODEL_URL),
