@@ -26,13 +26,16 @@ const FaceMatcher = () => {
         setIdentifiedStudent("No students enrolled");
         return null;
       }
-      const labeledFaceDescriptors = students?.map((student) => {
-        return new faceapi.LabeledFaceDescriptors(
-          student.name,
-          student?.descriptions?.map((desc) => new Float32Array(desc)),
-        );
-      });
+      const labeledFaceDescriptors = students
+        ?.filter((student) => student?.descriptions?.length > 0)
+        .map((student) => {
+          return new faceapi.LabeledFaceDescriptors(
+            student.name,
+            student?.descriptions?.map((desc) => new Float32Array(desc)),
+          );
+        });
       setIsReady(true);
+      Swal.fire({ icon: "success", title: "Matcher is ready." });
 
       return new faceapi.FaceMatcher(labeledFaceDescriptors, 0.6);
     };
