@@ -4,7 +4,7 @@ import Webcam from "react-webcam";
 import * as faceapi from "face-api.js";
 import { useGetStudentsQuery } from "@/redux/features/students/studentsApiSlice";
 import Swal from "sweetalert2";
-
+import Speech from "react-text-to-speech";
 const FaceMatcher = () => {
   const webcamRef = useRef<Webcam>(null);
   const [identifiedStudent, setIdentifiedStudent] = useState("Initializing...");
@@ -12,6 +12,7 @@ const FaceMatcher = () => {
   const { data: students } = useGetStudentsQuery();
 
   useEffect(() => {
+    // const recognition = new ()
     const setupFaceMatcher = async () => {
       // Load the AI models.
       const MODEL_URL = "/model";
@@ -65,6 +66,7 @@ const FaceMatcher = () => {
             title: "Face detected.",
             titleText: bestMatch.toString(),
           });
+          <Speech text={bestMatch.toString()} />;
           setIdentifiedStudent(bestMatch.toString());
         } else {
           Swal.fire({ icon: "error", title: "No face detected." });
