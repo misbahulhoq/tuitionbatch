@@ -5,6 +5,7 @@ import * as faceapi from "face-api.js";
 import { useGetStudentsQuery } from "@/redux/features/students/studentsApiSlice";
 import Swal from "sweetalert2";
 import Speech from "react-text-to-speech";
+import toast from "react-hot-toast";
 const FaceMatcher = () => {
   const webcamRef = useRef<Webcam>(null);
   const [identifiedStudent, setIdentifiedStudent] = useState("Initializing...");
@@ -36,15 +37,18 @@ const FaceMatcher = () => {
           );
         });
       setIsReady(true);
-      Swal.fire({ icon: "success", title: "Matcher is ready." });
-
+      toast.success("Face matcher is ready.", {
+        duration: 2000,
+      });
       return new faceapi.FaceMatcher(labeledFaceDescriptors, 0.5);
     };
 
     const runDetection = async () => {
       const faceMatcher = await setupFaceMatcher();
       if (!faceMatcher) {
-        Swal.fire({ icon: "error", title: "No face matcher found." });
+        toast.error("No face matcher found.", {
+          duration: 2000,
+        });
         return;
       }
 
@@ -64,18 +68,14 @@ const FaceMatcher = () => {
           const { label, distance } = bestMatch;
           const confidence = Math.round((1 - distance) * 100);
           if (label === "unknown") {
-            Swal.fire({
-              icon: "error",
-              title: "Person is not matched.",
-              text: `${confidence}`,
+            toast.error("Person is not matched." + `${confidence}%`, {
+              duration: 2000,
             });
           } else {
-            Swal.fire({
-              icon: "success",
-              title: "Face detected.",
-              titleText: bestMatch.toString(),
+            toast.success(`${label}'s face detected.`, {
+              duration: 2000,
             });
-            <Speech text={label} />;
+            <Speech text={label} autoPlay={true} />;
           }
           setIdentifiedStudent(label);
         } else {
