@@ -20,7 +20,7 @@ const FaceMatcher = () => {
         faceapi.nets.faceLandmark68Net.loadFromUri(MODEL_URL),
         faceapi.nets.faceRecognitionNet.loadFromUri(MODEL_URL),
       ]);
-      if (students?.length) {
+      if (students?.length === 0) {
         setIsReady(true);
         Swal.fire({ icon: "warning", title: "You don't have any students." });
         setIdentifiedStudent("No students enrolled");
