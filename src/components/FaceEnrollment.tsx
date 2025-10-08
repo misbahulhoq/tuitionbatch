@@ -78,18 +78,20 @@ const FaceEnrollment = ({ studentId }: { studentId: string }) => {
   }, [webcamRef, updateStudentById, studentId]);
   return (
     <div>
-      <Webcam
-        audio={false}
-        ref={webcamRef}
-        screenshotFormat="image/jpeg"
-        width={300}
-        height={100}
-        className={`rounded-full ${isCamOpen ? "block" : "hidden"}`}
-        videoConstraints={videoConstraints}
-        onUserMedia={() => {
-          setIsWebcamReady(true);
-        }}
-      />
+      {isCamOpen && (
+        <Webcam
+          audio={false}
+          ref={webcamRef}
+          screenshotFormat="image/jpeg"
+          width={300}
+          height={100}
+          className={`rounded-full ${isCamOpen ? "block" : "hidden"}`}
+          videoConstraints={videoConstraints}
+          onUserMedia={() => {
+            setIsWebcamReady(true);
+          }}
+        />
+      )}
 
       <button
         onClick={() => {

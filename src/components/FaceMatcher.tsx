@@ -65,8 +65,8 @@ const FaceMatcher = () => {
     runDetection();
   }, [students]);
   return (
-    <div>
-      <Webcam audio={true} ref={webcamRef} width={480} height={360} />
+    <div className="flex flex-col items-center">
+      <Webcam audio={false} ref={webcamRef} width={480} height={360} />
       <h3>Identified: {isReady ? identifiedStudent : "Loading models..."}</h3>
     </div>
   );
