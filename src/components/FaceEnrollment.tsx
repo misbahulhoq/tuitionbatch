@@ -14,7 +14,7 @@ const FaceEnrollment = ({ studentId }: { studentId: string }) => {
   const [isWebcamReady, setIsWebcamReady] = useState(false);
   const [updateStudentById] = useUpdateStudentByIdMutation();
   const [isCamOpen, setIsCamOpen] = useState(false);
-  // const [areModelsReady, setAreModelsReady] = useState(false);
+  // const [descriptors, setDescriptors] = useState([]);
 
   useEffect(() => {
     const loadModels = async () => {
@@ -78,20 +78,18 @@ const FaceEnrollment = ({ studentId }: { studentId: string }) => {
   }, [webcamRef, updateStudentById, studentId]);
   return (
     <div>
-      {isCamOpen && (
-        <Webcam
-          audio={false}
-          ref={webcamRef}
-          screenshotFormat="image/jpeg"
-          width={300}
-          height={100}
-          className={`rounded-full ${isCamOpen ? "block" : "hidden"}`}
-          videoConstraints={videoConstraints}
-          onUserMedia={() => {
-            setIsWebcamReady(true);
-          }}
-        />
-      )}
+      <Webcam
+        audio={false}
+        ref={webcamRef}
+        screenshotFormat="image/jpeg"
+        width={300}
+        height={100}
+        className={`rounded-full ${isCamOpen ? "block" : "hidden"}`}
+        videoConstraints={videoConstraints}
+        onUserMedia={() => {
+          setIsWebcamReady(true);
+        }}
+      />
 
       <button
         onClick={() => {
