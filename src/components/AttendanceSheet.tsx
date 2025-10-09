@@ -10,7 +10,6 @@ import Link from "next/link";
 import { Sheet } from "@/types/attendance.type";
 import AttendanceRow from "./attendance/AttendanceRow";
 import { FaCamera } from "react-icons/fa";
-import FaceMatcher from "./FaceMatcher";
 
 const AttendanceSheet = () => {
   const [date] = useState(new Date());
@@ -64,9 +63,6 @@ const AttendanceSheet = () => {
       <div className="mb-3 flex justify-center">
         <h2>{date.toDateString()}</h2>
       </div>
-
-      {/* {isFaceMatcherOpen && <FaceMatcher />} */}
-      <FaceMatcher />
 
       <table className="w-full">
         <thead>
