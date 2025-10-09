@@ -9,7 +9,6 @@ import {
 import Link from "next/link";
 import { Sheet } from "@/types/attendance.type";
 import AttendanceRow from "./attendance/AttendanceRow";
-import { FaCamera } from "react-icons/fa";
 
 const AttendanceSheet = () => {
   const [date] = useState(new Date());
@@ -50,14 +49,6 @@ const AttendanceSheet = () => {
     <div className="mx-auto mt-5 max-w-2xl rounded-lg text-lg">
       <div className="mb-4 flex items-center justify-center gap-4">
         <h1 className="text-center text-2xl font-bold">Attendance Sheet</h1>
-        <button
-          className="btn btn-outline"
-          onClick={() => {
-            setIsFaceMatcherOpen(!open);
-          }}
-        >
-          <FaCamera size={20} />
-        </button>
       </div>
 
       <div className="mb-3 flex justify-center">
