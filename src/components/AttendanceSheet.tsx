@@ -14,7 +14,6 @@ const AttendanceSheet = () => {
   const [date] = useState(new Date());
   const { data: students, isLoading } = useGetStudentsQuery();
   const [createAttendanceSheet] = useCreateAttendanceMutation();
-  const [, setIsFaceMatcherOpen] = useState(false);
   const [triggerGetAttendance, { data: attendanceRecord }] =
     useLazyGetTodaysAttendanceSheetQuery();
   useEffect(() => {
