@@ -14,8 +14,11 @@ const AttendanceSheet = () => {
   const [date] = useState(new Date());
   const { data: students, isLoading } = useGetStudentsQuery();
   const [createAttendanceSheet] = useCreateAttendanceMutation();
-  const [triggerGetAttendance, { data: attendanceRecord }] =
-    useLazyGetTodaysAttendanceSheetQuery();
+  const [
+    triggerGetAttendance,
+    { data: attendanceRecord, isLoading: isSheetLoading },
+  ] = useLazyGetTodaysAttendanceSheetQuery();
+
   useEffect(() => {
     if (Array.isArray(students) && students.length > 0) {
       createAttendanceSheet({
@@ -32,7 +35,15 @@ const AttendanceSheet = () => {
     }
   }, [students, createAttendanceSheet, date, triggerGetAttendance]);
 
-  if (isLoading) return <Spinner />;
+  if (isLoading || isSheetLoading)
+    return (
+      <div className="flex h-[100dvh] items-center justify-center">
+        <div className="flex flex-col items-center justify-center gap-3">
+          <small className="block">Sheet is loading.</small>
+          <Spinner />
+        </div>
+      </div>
+    );
 
   if (Array.isArray(students) && students.length === 0)
     return (
