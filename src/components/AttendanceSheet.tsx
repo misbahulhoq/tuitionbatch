@@ -1,6 +1,6 @@
 "use client";
 import { useGetStudentsQuery } from "@/redux/features/students/studentsApiSlice";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Spinner from "./loaders/Spinner";
 import {
   useCreateAttendanceMutation,
@@ -12,15 +12,22 @@ import AttendanceRow from "./attendance/AttendanceRow";
 
 const AttendanceSheet = () => {
   const [date] = useState(new Date());
+  const renderCount = useRef(0);
+  const initialized = useRef(false);
   const { data: students, isLoading } = useGetStudentsQuery();
   const [createAttendanceSheet] = useCreateAttendanceMutation();
   const [
     triggerGetAttendance,
-    { data: attendanceRecord, isLoading: isSheetLoading },
+    { data: attendanceRecord, isLoading: isSheetLoading = true },
   ] = useLazyGetTodaysAttendanceSheetQuery();
 
+  renderCount.current += 1;
+  console.log(`Rendered ${renderCount.current} times`);
+
   useEffect(() => {
+    if (initialized.current) return;
     if (Array.isArray(students) && students.length > 0) {
+      initialized.current = true;
       createAttendanceSheet({
         date: new Date().toISOString(),
         sheet: students.map((s) => ({ student: s._id })),
@@ -33,9 +40,11 @@ const AttendanceSheet = () => {
           console.log(err);
         });
     }
-  }, [students, createAttendanceSheet, date, triggerGetAttendance]);
+  }, [students, createAttendanceSheet, triggerGetAttendance]);
 
-  if (isLoading || isSheetLoading)
+  console.log({ isLoading, isSheetLoading });
+
+  if (isLoading || isSheetLoading || !attendanceRecord)
     return (
       <div className="flex h-[100dvh] items-center justify-center">
         <div className="flex flex-col items-center justify-center gap-3">
