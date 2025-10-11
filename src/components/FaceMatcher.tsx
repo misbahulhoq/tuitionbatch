@@ -12,6 +12,16 @@ const FaceMatcher = () => {
   const [isReady, setIsReady] = useState(false);
   const { data: students } = useGetStudentsQuery();
 
+  const labeledFaceDescriptors = students
+    ?.filter((student) => student?.descriptions?.length > 0)
+    .map((student) => {
+      return new faceapi.LabeledFaceDescriptors(
+        student.name,
+        student?.descriptions?.map((desc) => new Float32Array(desc)),
+      );
+    });
+  console.log(labeledFaceDescriptors);
+  return null;
   useEffect(() => {
     // const recognition = new ()
     const setupFaceMatcher = async () => {
